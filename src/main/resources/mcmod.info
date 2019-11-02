@@ -1,0 +1,16 @@
+[
+{
+  "modid": "hlf",
+  "name": "Hey Look, Fairies!",
+  "description": "It adds fairies and fairy accessories.",
+  "version": "1.0",
+  "mcversion": "1.12.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["KodaichiZero"],
+  "credits": "Special thanks to Risugami and _303, the mother and father of Minecraft modding, and all my #risucraft boys from back in the glory days of 2010-2012.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

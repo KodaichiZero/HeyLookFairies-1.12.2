@@ -1,0 +1,39 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        " S ",
+        "IRI",
+        "IFI"
+    ],
+   
+    "key":
+    {
+        "S":
+        {
+            "item": "minecraft:stick"
+        },
+        
+        "I":
+        {
+            "item": "minecraft:iron_ingot"
+        },
+        
+        "R":
+        {
+            "item": "minecraft:redstone"
+        },
+        
+        "F":
+        {
+            "item": "hlf:fairy_dust"
+        }
+    },
+   
+    "result":
+    {
+        "item": "hlf:fairy_comm",
+        "count": 1
+    }
+}

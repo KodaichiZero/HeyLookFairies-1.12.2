@@ -1,0 +1,11 @@
+//Items
+item.fairy_dust.name=Fairy Dust
+item.fairy_crust.name=Fairy Crust
+item.cremated_fairy_crust.name=Cremated Fairy Crust
+item.fairy_comm.name=Fairy-COMM
+
+//Blocks
+tile.fairy_crust_block.name=Block of Fairy Crust
+
+//Entities
+entity.fairy.name=Fairy

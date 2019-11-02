@@ -1,0 +1,6 @@
+{
+   "parent": "item/handheld",
+   "textures": {
+      "layer0": "hlf:items/fairy_comm"
+   }
+}
