@@ -18,7 +18,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = References.MOD_ID, name = References.NAME, version = References.VERSION)
 public class Main {
 
-	
 	@Instance
 	public static Main instance;
 	
