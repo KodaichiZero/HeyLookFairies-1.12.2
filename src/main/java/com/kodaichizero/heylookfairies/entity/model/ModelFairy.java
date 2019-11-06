@@ -88,23 +88,23 @@ public class ModelFairy extends ModelBase {
         this.leftLeg.setRotationPoint(1F, 6.0F + verticalOffset, 0.0F);
         
         //Wings
-        this.leftWingMajora = new ModelRenderer(this, 29, 16);
+        this.leftWingMajora = new ModelRenderer(this, 1, 13);
         this.leftWingMajora.addBox(-9.0F, -5.0F, 0F, 9, 9, 0, expandAmount + 0.01F);
         this.leftWingMajora.setRotationPoint(-0.5F, 2.0F, 1.0F);
         this.body.addChild(leftWingMajora);
         
-        this.leftWingMinora = new ModelRenderer(this, 48, 16);
+        this.leftWingMinora = new ModelRenderer(this, 20, 13);
         this.leftWingMinora.addBox(-7.0F, 0.0F, 0F, 7, 9, 0, expandAmount + 0.01F);
         this.leftWingMinora.setRotationPoint(-0.5F, 2.0F, 1.0F);
         this.body.addChild(leftWingMinora);
         
-        this.rightWingMajora = new ModelRenderer(this, 29, 16);
+        this.rightWingMajora = new ModelRenderer(this, 1, 13);
         this.rightWingMajora.mirror = true;
         this.rightWingMajora.addBox(0F, -5.0F, 0F, 9, 9, 0, expandAmount + 0.01F);
         this.rightWingMajora.setRotationPoint(0.5F, 2.0F, 1.0F);
         this.body.addChild(rightWingMajora);
         
-        this.rightWingMinora = new ModelRenderer(this, 48, 16);
+        this.rightWingMinora = new ModelRenderer(this, 20, 13);
         this.rightWingMinora.mirror = true;
         this.rightWingMinora.addBox(0F, 0.0F, 0F, 7, 9, 0, expandAmount + 0.01F);
         this.rightWingMinora.setRotationPoint(0.5F, 2.0F, 1.0F);

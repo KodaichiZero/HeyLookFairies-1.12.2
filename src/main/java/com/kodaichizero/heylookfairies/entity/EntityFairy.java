@@ -1,7 +1,7 @@
 package com.kodaichizero.heylookfairies.entity;
 
-import java.util.List;
 import com.kodaichizero.heylookfairies.util.EnumShoulderSide;
+import com.kodaichizero.heylookfairies.util.FairyUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,24 +13,25 @@ import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class EntityFairy extends EntityCreature {
 	
 	public EntityLivingBase shoulderRidingEntity;
 	public EnumShoulderSide shoulderSide;
+	public EnumDyeColor hairColor;
 	
 	public EntityFairy(World worldIn) {
 		super(worldIn);
 		this.setSize(0.375F, 0.5F);
 		this.shoulderSide = EnumShoulderSide.NONE;
+		this.setHairColor(EnumDyeColor.byMetadata(rand.nextInt(16)));
 	}
 	
 	@Override //Set up the fairy's basic AI tasks.
@@ -142,7 +143,7 @@ public class EntityFairy extends EntityCreature {
 		}
 		
 		//Get on the shoulder if there is an empty spot.
-		EnumShoulderSide playerShoulder = this.playerHasFairyOnShoulder(player);
+		EnumShoulderSide playerShoulder = FairyUtils.playerHasFairyOnShoulder(player);
 		if(playerShoulder == EnumShoulderSide.NONE || playerShoulder == EnumShoulderSide.RIGHT) {
 			this.shoulderRidingEntity = player;
 			this.shoulderSide = EnumShoulderSide.LEFT;
@@ -235,43 +236,24 @@ public class EntityFairy extends EntityCreature {
 	}
 	
 	/**
+	 * Set the fairy's hair color to an EnumDyeColor.
+	 */
+	public void setHairColor(EnumDyeColor color) {
+		this.hairColor = color;
+	}
+	
+	/**
+	 * Retrieve the fairy's hair color as an EnumDyeColor.
+	 */
+	public EnumDyeColor getHairColor() {
+		return this.hairColor;
+	}
+	
+	/**
 	 * Does the fairy have pigtails as their hairstyle?
 	 */
 	public boolean hasPigtails() {
 		// TODO Auto-generated method stub
 		return true;
-	}
-	
-	/**
-	 * Determines if the player given as a parameter has a fairy on their shoulder. Returns an enum value.
-	 */
-	public EnumShoulderSide playerHasFairyOnShoulder(EntityPlayer player) {
-		boolean left = false;
-		boolean right = false;
-		Vec3d pos = player.getPositionVector();
-		List<EntityFairy> fairies = this.world.getEntitiesWithinAABB(EntityFairy.class, new AxisAlignedBB(pos.x - 5D, pos.y - 5D, pos.z - 5D, pos.x + 5D, pos.y + 5D, pos.z + 5D));
-		for(EntityFairy fairy : fairies) {
-			if(fairy.isShoulderRiding()) {
-				if(fairy.shoulderSide == EnumShoulderSide.LEFT) {
-					left = true;
-				} else if(fairy.shoulderSide == EnumShoulderSide.RIGHT) {
-					right = true;
-				}
-			}
-			
-			if(left && right) {
-				break;
-			}
-		}
-		
-		if(left && right) {
-			return EnumShoulderSide.BOTH;
-		} else if(left) {
-			return EnumShoulderSide.LEFT;
-		} else if(right) {
-			return EnumShoulderSide.RIGHT;
-		} 
-		
-		return EnumShoulderSide.NONE;
 	}
 }

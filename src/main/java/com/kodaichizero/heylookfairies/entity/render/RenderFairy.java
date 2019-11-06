@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderFairy extends RenderLiving<EntityFairy> {
 	
-	public static final ResourceLocation TEXTURES = new ResourceLocation(References.MOD_ID + ":textures/entities/fairy.png");
+	public static final ResourceLocation TEXTURE = new ResourceLocation(References.MOD_ID + ":textures/entities/fairy.png");
 	
 	public RenderFairy(RenderManager manager) {
 		super(manager, new ModelFairy(), 0.2F);
@@ -20,6 +20,6 @@ public class RenderFairy extends RenderLiving<EntityFairy> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityFairy entity) {
-		return TEXTURES;
+		return TEXTURE;
 	}
 }
