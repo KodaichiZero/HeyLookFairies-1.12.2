@@ -35,27 +35,6 @@ public class ModelFairy extends ModelBase {
     public ModelRenderer rightWingMajora;
     public ModelRenderer leftWingMinora;
     public ModelRenderer rightWingMinora;
-    
-    //Hair 1: Bouncy Pigtails
-    public ModelRenderer hairTop;
-    
-    public ModelRenderer hairFrontLeft;
-    public ModelRenderer hairFrontMid;
-    public ModelRenderer hairFrontRight;
-    
-    public ModelRenderer hairLeftFront;
-    public ModelRenderer hairLeftBack;
-    
-    public ModelRenderer hairRightFront;
-    public ModelRenderer hairRightBack;
-    
-    public ModelRenderer hairBack;
-    
-    public ModelRenderer hairPigtailLeftBig;
-    public ModelRenderer hairPigtailLeftSmall;
-    
-    public ModelRenderer hairPigtailRightBig;
-    public ModelRenderer hairPigtailRightSmall;
 	
 	public ModelFairy() {
 		float expandAmount = 0;
@@ -108,92 +87,33 @@ public class ModelFairy extends ModelBase {
         this.leftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 6, 2, expandAmount);
         this.leftLeg.setRotationPoint(1F, 6.0F + verticalOffset, 0.0F);
         
+        //Wings
         this.leftWingMajora = new ModelRenderer(this, 29, 16);
         this.leftWingMajora.addBox(-9.0F, -5.0F, 0F, 9, 9, 0, expandAmount + 0.01F);
-        this.leftWingMajora.setRotationPoint(-0.5F, 2F + verticalOffset, 1.0F);
+        this.leftWingMajora.setRotationPoint(-0.5F, 2.0F, 1.0F);
         this.body.addChild(leftWingMajora);
         
         this.leftWingMinora = new ModelRenderer(this, 48, 16);
         this.leftWingMinora.addBox(-7.0F, 0.0F, 0F, 7, 9, 0, expandAmount + 0.01F);
-        this.leftWingMinora.setRotationPoint(-0.5F, 2F + verticalOffset, 1.0F);
+        this.leftWingMinora.setRotationPoint(-0.5F, 2.0F, 1.0F);
         this.body.addChild(leftWingMinora);
         
         this.rightWingMajora = new ModelRenderer(this, 29, 16);
         this.rightWingMajora.mirror = true;
         this.rightWingMajora.addBox(0F, -5.0F, 0F, 9, 9, 0, expandAmount + 0.01F);
-        this.rightWingMajora.setRotationPoint(0.5F, 2F + verticalOffset, 1.0F);
+        this.rightWingMajora.setRotationPoint(0.5F, 2.0F, 1.0F);
         this.body.addChild(rightWingMajora);
         
         this.rightWingMinora = new ModelRenderer(this, 48, 16);
         this.rightWingMinora.mirror = true;
         this.rightWingMinora.addBox(0F, 0.0F, 0F, 7, 9, 0, expandAmount + 0.01F);
-        this.rightWingMinora.setRotationPoint(0.5F, 2F + verticalOffset, 1.0F);
+        this.rightWingMinora.setRotationPoint(0.5F, 2.0F, 1.0F);
         this.body.addChild(rightWingMinora);
-        
-        //Define Bouncy Pigtails Pieces
-        
-        //Top
-        this.hairTop = new ModelRenderer(this, 24, 8);
-        this.hairTop.addBox(-3.0F, -7.0F, -3.0F, 6, 1, 6);
-        this.head.addChild(hairTop);
-        
-        //Front
-        this.hairFrontLeft = new ModelRenderer(this, 0, 12);
-        this.hairFrontLeft.addBox(-3.0F, -6.0F, -4.0F, 2, 2, 1);
-        this.head.addChild(hairFrontLeft);
-        
-        this.hairFrontMid = new ModelRenderer(this, 7, 12);
-        this.hairFrontMid.addBox(-1.0F, -6.0F, -4.0F, 1, 1, 1);
-        this.head.addChild(hairFrontMid);
-        
-        this.hairFrontRight = new ModelRenderer(this, 1, 12);
-        this.hairFrontRight.addBox(0.0F, -6.0F, -4.0F, 3, 2, 1);
-        this.head.addChild(hairFrontRight);
-        
-        //Left
-        this.hairLeftFront = new ModelRenderer(this, 0, 15);
-        this.hairLeftFront.addBox(-4.0F, -6.0F, -3.0F, 1, 3, 3);
-        this.head.addChild(hairLeftFront);
-        
-        this.hairLeftBack = new ModelRenderer(this, 8, 15);
-        this.hairLeftBack.addBox(-4.0F, -6.0F, 0.0F, 1, 4, 3);
-        this.head.addChild(hairLeftBack);
-        
-        //Right
-        this.hairRightFront = new ModelRenderer(this, 0, 15);
-        this.hairRightFront.addBox(3.0F, -6.0F, -3.0F, 1, 3, 3);
-        this.head.addChild(hairRightFront);
-        
-        this.hairRightBack = new ModelRenderer(this, 8, 15);
-        this.hairRightBack.addBox(3.0F, -6.0F, 0.0F, 1, 4, 3);
-        this.head.addChild(hairRightBack);
-        
-        //Back
-        this.hairBack = new ModelRenderer(this, 0, 22);
-        this.hairBack.addBox(-3.0F, -6.0F, 3.0F, 6, 5, 1);
-        this.head.addChild(hairBack);
-        
-        //Left Pigtail
-        this.hairPigtailLeftBig = new ModelRenderer(this, 16, 20);
-        this.hairPigtailLeftBig.addBox(-3.0F, -3.0F, -1.5F, 3, 3, 3);
-        this.hairPigtailLeftBig.setRotationPoint(-2.5F, -5.5F, 2F);
-        this.head.addChild(hairPigtailLeftBig);
-        
-        this.hairPigtailLeftSmall = new ModelRenderer(this, 16, 15);
-        this.hairPigtailLeftSmall.addBox(-3.5F, -2.5F, -1F, 1, 3, 2);
-        this.hairPigtailLeftBig.addChild(hairPigtailLeftSmall);
-        
-        //Right Pigtail
-        this.hairPigtailRightBig = new ModelRenderer(this, 16, 20);
-        this.hairPigtailRightBig.addBox(0F, -3.0F, -1.5F, 3, 3, 3);
-        this.hairPigtailRightBig.setRotationPoint(2.5F, -5.5F, 2F);
-        this.head.addChild(hairPigtailRightBig);
-        
-        this.hairPigtailRightSmall = new ModelRenderer(this, 16, 15);
-        this.hairPigtailRightSmall.addBox(2.5F, -2.5F, -1F, 1, 3, 2);
-        this.hairPigtailRightBig.addChild(hairPigtailRightSmall);
     }
 	
+	/**
+	 * Override because we need to scale the model down before rendering it.
+	 */
 	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		GlStateManager.pushMatrix();
@@ -210,20 +130,21 @@ public class ModelFairy extends ModelBase {
         GlStateManager.popMatrix();
     }
 	
-	//@SuppressWarnings("incomplete-switch")
+	/**
+	 * Defining all of the custom animations for the fairy's body.
+	 */
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
     	this.head.rotateAngleY = netHeadYaw * 0.017453292F;
         this.head.rotateAngleX = headPitch * 0.017453292F;
 
         this.body.rotateAngleY = 0.0F;
         
-        float f = 1.0F;
-        this.rightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 2.0F * limbSwingAmount * 0.5F / f;
-        this.leftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F / f;
+        this.rightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 2.0F * limbSwingAmount * 0.5F;
+        this.leftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
         this.rightArm.rotateAngleZ = 0.0F;
         this.leftArm.rotateAngleZ = 0.0F;
-        this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f;
-        this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount / f;
+        this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.rightLeg.rotateAngleY = 0.0F;
         this.leftLeg.rotateAngleY = 0.0F;
         this.rightLeg.rotateAngleZ = 0.0F;
@@ -283,14 +204,6 @@ public class ModelFairy extends ModelBase {
         this.rightArm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
         this.leftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
         
-        //Pigtail Bounce
-        if(entityIn.onGround) {
-        	this.hairPigtailLeftBig.rotateAngleZ = -MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.25F / f;
-        	this.hairPigtailRightBig.rotateAngleZ = MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.25F / f;
-        } else {
-        	this.hairPigtailLeftBig.rotateAngleZ = -(float)entityIn.motionY * 1F;
-        	this.hairPigtailRightBig.rotateAngleZ = (float)entityIn.motionY * 1F;
-        }
         
         //Wing Rotations
         this.leftWingMajora.rotateAngleX = -(float)Math.PI * (8F / 9F);
@@ -317,12 +230,16 @@ public class ModelFairy extends ModelBase {
         //this.rightWingMajora.rotateAngleZ = -(float)Math.PI / 8F;
 	}
 	
-	//Copied from ModelBiped.
+	/**
+	 * Don't really know what this does, copied it from ModelBiped.
+	 */
 	protected ModelRenderer getArmForSide(EnumHandSide side) {
         return side == EnumHandSide.LEFT ? this.leftArm : this.rightArm;
     }
 
-	//Copied from ModelBiped.
+	/**
+	 * Don't really know what this does, copied it from ModelBiped.
+	 */
     protected EnumHandSide getMainHand(Entity entityIn)
     {
         if (entityIn instanceof EntityLivingBase)

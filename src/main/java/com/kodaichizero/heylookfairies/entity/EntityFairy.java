@@ -245,6 +245,14 @@ public class EntityFairy extends EntityCreature {
 	}
 	
 	/**
+	 * Does the fairy have pigtails as their hairstyle?
+	 */
+	public boolean hasPigtails() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	/**
 	 * Determines if the player given as a parameter has a fairy on their shoulder. Returns an enum value.
 	 */
 	public EnumShoulderSide playerHasFairyOnShoulder(EntityPlayer player) {
