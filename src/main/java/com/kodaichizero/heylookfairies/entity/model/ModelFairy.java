@@ -285,11 +285,11 @@ public class ModelFairy extends ModelBase {
         
         //Pigtail Bounce
         if(entityIn.onGround) {
-        	this.hairPigtailLeftBig.rotateAngleZ = -MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.375F / f;
-        	this.hairPigtailRightBig.rotateAngleZ = MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.375F / f;
+        	this.hairPigtailLeftBig.rotateAngleZ = -MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.25F / f;
+        	this.hairPigtailRightBig.rotateAngleZ = MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.25F / f;
         } else {
-        	this.hairPigtailLeftBig.rotateAngleZ = -(float)entityIn.motionY;
-        	this.hairPigtailRightBig.rotateAngleZ = (float)entityIn.motionY;
+        	this.hairPigtailLeftBig.rotateAngleZ = -(float)entityIn.motionY * 1F;
+        	this.hairPigtailRightBig.rotateAngleZ = (float)entityIn.motionY * 1F;
         }
         
         //Wing Rotations
