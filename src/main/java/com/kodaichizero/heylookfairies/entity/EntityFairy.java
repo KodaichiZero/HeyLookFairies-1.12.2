@@ -202,22 +202,12 @@ public class EntityFairy extends EntityCreature {
         return false;
     }
 	
-	
 	/**
 	 * This is how high the fairy should be positioned above its mount.
 	 */
 	@Override
 	public double getYOffset() {
         return 0.175D;
-    }
-	
-	/**
-	 * Fairies are short! Didja know?
-	 */
-	@Override
-	public float getEyeHeight()
-    {
-        return 0.65F;
     }
 	
 	@Override //Temporary, will allow a fairy to ride a chicken.

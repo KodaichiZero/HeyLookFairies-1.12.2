@@ -109,6 +109,7 @@ public class ModelFairyPigtails extends ModelBase {
 	/**
 	 * Defining custom animations for ther hair.
 	 */
+	@Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
     	this.hairTop.rotateAngleY = netHeadYaw * 0.017453292F;
         this.hairTop.rotateAngleX = headPitch * 0.017453292F;

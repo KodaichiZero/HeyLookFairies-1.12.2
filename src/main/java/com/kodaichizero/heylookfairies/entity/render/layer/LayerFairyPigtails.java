@@ -21,9 +21,12 @@ public class LayerFairyPigtails implements LayerRenderer<EntityFairy> {
         this.fairyRenderer = fairyRendererIn;
     }
 
+	/**
+	 * Here's where we set the fancy render options, like hair color, before rendering the model.
+	 */
+	@Override
 	public void doRenderLayer(EntityFairy entityFairyIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if (!entityFairyIn.hasPigtails() && !entityFairyIn.isInvisible())
-        {
+        if(entityFairyIn.hasPigtails() && !entityFairyIn.isInvisible()) {
             this.fairyRenderer.bindTexture(TEXTURES);
 
             /* 
@@ -49,11 +52,15 @@ public class LayerFairyPigtails implements LayerRenderer<EntityFairy> {
             */
 
             this.hairModel.setModelAttributes(this.fairyRenderer.getMainModel());
-            this.hairModel.setLivingAnimations(entityFairyIn, limbSwing, limbSwingAmount, partialTicks);
+            this.hairModel.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityFairyIn);
             this.hairModel.render(entityFairyIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         }
     }
 
+	/**
+	 * What the heck is this? I dunno. The sheep had it.
+	 */
+	@Override
     public boolean shouldCombineTextures() {
         return true;
     }
