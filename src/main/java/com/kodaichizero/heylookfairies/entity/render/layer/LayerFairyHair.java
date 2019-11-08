@@ -1,11 +1,11 @@
 package com.kodaichizero.heylookfairies.entity.render.layer;
 
 import com.kodaichizero.heylookfairies.entity.EntityFairy;
-import com.kodaichizero.heylookfairies.entity.model.ModelFairyPigtails;
 import com.kodaichizero.heylookfairies.entity.render.RenderFairy;
 import com.kodaichizero.heylookfairies.util.EnumHairStyle;
 import com.kodaichizero.heylookfairies.util.Reference;
 
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -13,15 +13,18 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-@Deprecated
-public class LayerFairyPigtails implements LayerRenderer<EntityFairy> {
+public class LayerFairyHair implements LayerRenderer<EntityFairy> {
 	
-	public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/fairypigtails.png");
-    private final RenderFairy fairyRenderer;
-    private final ModelFairyPigtails hairModel = new ModelFairyPigtails();
+    private RenderFairy fairyRenderer;
+    private EnumHairStyle hairStyle;
+    private ModelBase hairModel;
+    private ResourceLocation texture;
 	
-	public LayerFairyPigtails(RenderFairy fairyRendererIn) {
+	public LayerFairyHair(RenderFairy fairyRendererIn, EnumHairStyle hairStyle) {
         this.fairyRenderer = fairyRendererIn;
+        this.hairStyle = hairStyle;
+        this.hairModel = hairStyle.getModel();
+        this.texture = new ResourceLocation(Reference.MOD_ID + ":textures/entities/fairyhair_" + hairStyle.getName() + ".png");
     }
 
 	/**
@@ -29,8 +32,8 @@ public class LayerFairyPigtails implements LayerRenderer<EntityFairy> {
 	 */
 	@Override
 	public void doRenderLayer(EntityFairy entityFairyIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if(entityFairyIn.getHairStyle() == EnumHairStyle.PIGTAILS && !entityFairyIn.isInvisible()) {
-            this.fairyRenderer.bindTexture(TEXTURE);
+        if(entityFairyIn.getHairStyle() == this.hairStyle && !entityFairyIn.isInvisible()) {
+            this.fairyRenderer.bindTexture(texture);
 
             //Get the fairy's hair color and color the model.
             // TODO make it so we don't calculate this every single frame.

@@ -4,8 +4,22 @@ import net.minecraft.item.Item;
 
 public class CommonProxy {
 	
+	/**
+	 * Register an item's renderer.
+	 */
 	public void registerItemRenderer(Item item, int meta, String id) {
-		
 	}
 
+	/**
+	 * Register all entities' renderers.
+	 */
+	public void registerEntityRenderers() {
+	}
+
+	/**
+	 * Get the name of a hairstyle from the player's locale.
+	 */
+	public String getHairstyleDisplayName(String name) {
+		return "";
+	}
 }

@@ -27,7 +27,7 @@ public class ModelFairyPigtails extends ModelBase {
 	public ModelFairyPigtails() {
 		//float expandAmount = 0;
 		float verticalOffset = 0F;
-        this.textureWidth = 64;
+        this.textureWidth = 32;
         this.textureHeight = 32;
     
 	    //Top
@@ -74,21 +74,21 @@ public class ModelFairyPigtails extends ModelBase {
 	    //Left Pigtail
 	    this.hairPigtailLeftBig = new ModelRenderer(this, 16, 8);
 	    this.hairPigtailLeftBig.addBox(-3.0F, -3.0F, -1.5F, 3, 3, 3);
-	    this.hairPigtailLeftBig.setRotationPoint(-2.5F, -5.5F, 2F);
+	    this.hairPigtailLeftBig.setRotationPoint(-2.5F, -5.5F, 2.0F);
 	    this.hairTop.addChild(hairPigtailLeftBig);
 	    
 	    this.hairPigtailLeftSmall = new ModelRenderer(this, 16, 3);
-	    this.hairPigtailLeftSmall.addBox(-3.5F, -2.5F, -1F, 1, 3, 2);
+	    this.hairPigtailLeftSmall.addBox(-3.5F, -2.5F, -1.0F, 1, 3, 2);
 	    this.hairPigtailLeftBig.addChild(hairPigtailLeftSmall);
 	    
 	    //Right Pigtail
 	    this.hairPigtailRightBig = new ModelRenderer(this, 16, 8);
-	    this.hairPigtailRightBig.addBox(0F, -3.0F, -1.5F, 3, 3, 3);
-	    this.hairPigtailRightBig.setRotationPoint(2.5F, -5.5F, 2F);
+	    this.hairPigtailRightBig.addBox(0.0F, -3.0F, -1.5F, 3, 3, 3);
+	    this.hairPigtailRightBig.setRotationPoint(2.5F, -5.5F, 2.0F);
 	    this.hairTop.addChild(hairPigtailRightBig);
 	    
 	    this.hairPigtailRightSmall = new ModelRenderer(this, 16, 3);
-	    this.hairPigtailRightSmall.addBox(2.5F, -2.5F, -1F, 1, 3, 2);
+	    this.hairPigtailRightSmall.addBox(2.5F, -2.5F, -1.0F, 1, 3, 2);
 	    this.hairPigtailRightBig.addChild(hairPigtailRightSmall);
 	}
 	
@@ -107,7 +107,7 @@ public class ModelFairyPigtails extends ModelBase {
     }
 	
 	/**
-	 * Defining custom animations for ther hair.
+	 * Defining custom animations for the hair.
 	 */
 	@Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
@@ -116,11 +116,11 @@ public class ModelFairyPigtails extends ModelBase {
 
         //Pigtail Bounce
         if(entityIn.onGround) {
-        	this.hairPigtailLeftBig.rotateAngleZ = -MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.25F;
-        	this.hairPigtailRightBig.rotateAngleZ = MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.25F;
+        	this.hairPigtailLeftBig.rotateAngleZ = -0.1F -MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.25F;
+        	this.hairPigtailRightBig.rotateAngleZ = 0.1F + MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.25F;
         } else {
-        	this.hairPigtailLeftBig.rotateAngleZ = -(float)entityIn.motionY * 1F;
-        	this.hairPigtailRightBig.rotateAngleZ = (float)entityIn.motionY * 1F;
+        	this.hairPigtailLeftBig.rotateAngleZ = -0.1F - (float)entityIn.motionY * 1.0F;
+        	this.hairPigtailRightBig.rotateAngleZ = 0.1F + (float)entityIn.motionY * 1.0F;
         }
 	}
 }

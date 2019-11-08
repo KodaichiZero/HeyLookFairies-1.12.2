@@ -1,7 +1,9 @@
 package com.kodaichizero.heylookfairies.entity;
 
 import com.kodaichizero.heylookfairies.util.EnumShoulderSide;
-import com.kodaichizero.heylookfairies.util.FairyUtils;
+import com.kodaichizero.heylookfairies.util.EntityFairyUtil;
+import com.kodaichizero.heylookfairies.util.EnumHairStyle;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,14 +28,17 @@ public class EntityFairy extends EntityCreature {
 	public EntityLivingBase shoulderRidingEntity;
 	public EnumShoulderSide shoulderSide;
 	public EnumDyeColor hairColor;
+	public EnumHairStyle hairStyle;
 	
 	public EntityFairy(World worldIn) {
 		super(worldIn);
-		this.setSize(0.375F, 0.5F);
+		this.setSize(0.425F, 0.475F);
 		this.shoulderSide = EnumShoulderSide.NONE;
-		this.setHairColor(EnumDyeColor.byMetadata(rand.nextInt(16)));
+		// TODO Dye and hair randomization needs to be reworked.
+		
+		randomizeAppearance();
 	}
-	
+
 	@Override //Set up the fairy's basic AI tasks.
     protected void initEntityAI() {
         this.tasks.addTask(0, new EntityAISwimming(this));
@@ -49,6 +54,15 @@ public class EntityFairy extends EntityCreature {
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }
+	
+	/**
+	 * As part of initialization, randomize appearance variables.
+	 */
+	private void randomizeAppearance() {
+		this.setHairColor(EnumDyeColor.byMetadata(rand.nextInt(16)));
+		this.setHairStyle(EnumHairStyle.getById(rand.nextInt(EnumHairStyle.getLength())));
+		//this.setHairStyle(EnumHairStyle.BIGBUN);
+	}
 	
 	/**
 	 * Fairies should always dismount if their rider is dead.
@@ -78,6 +92,7 @@ public class EntityFairy extends EntityCreature {
 		if(this.isShoulderRiding()) {
 			setCustomNameTag("" + this.posX + " - " + this.posZ);
 			this.fallDistance = 0F;
+			this.prevOnGroundSpeedFactor = this.onGroundSpeedFactor = 0.0F;
 
 			this.motionX = shoulderRidingEntity.motionX;
             this.motionY = (shoulderRidingEntity.onGround ? 0D : shoulderRidingEntity.motionY);
@@ -90,7 +105,9 @@ public class EntityFairy extends EntityCreature {
             double zOffset = MathHelper.sin((shoulderRidingEntity.renderYawOffset * (float)Math.PI / 180F) + (this.shoulderSide == EnumShoulderSide.LEFT ? (float)Math.PI : 0F)) * 0.4D;
             this.setPosition(shoulderRidingEntity.posX + xOffset, shoulderRidingEntity.posY + (shoulderRidingEntity.isSneaking() ? 0.95D : 1.25D), shoulderRidingEntity.posZ + zOffset); 
 		} else if(!onGround && !isInWater() && !isInLava() && !isOnLadder() && !hasNoGravity() && !inFairyFlightMode()) {
-			this.motionY += 0.03D;
+			
+			//This makes fairies fall slowly.
+			this.motionY += 0.05D;
 		}
 		
 		super.travel(strafe, vertical, forward);
@@ -143,7 +160,7 @@ public class EntityFairy extends EntityCreature {
 		}
 		
 		//Get on the shoulder if there is an empty spot.
-		EnumShoulderSide playerShoulder = FairyUtils.playerHasFairyOnShoulder(player);
+		EnumShoulderSide playerShoulder = EntityFairyUtil.playerHasFairyOnShoulder(player);
 		if(playerShoulder == EnumShoulderSide.NONE || playerShoulder == EnumShoulderSide.RIGHT) {
 			this.shoulderRidingEntity = player;
 			this.shoulderSide = EnumShoulderSide.LEFT;
@@ -211,6 +228,14 @@ public class EntityFairy extends EntityCreature {
         return 0.175D;
     }
 	
+	/**
+	 * Fairies don't need to jump as high as other mobs because they have low-gravity.
+	 */
+	@Override
+    protected float getJumpUpwardsMotion() {
+        return 0.275F;
+    }
+	
 	@Override //Temporary, will allow a fairy to ride a chicken.
 	protected void collideWithEntity(Entity entityIn) {
 		// TODO This needs to be removed eventually.
@@ -242,6 +267,7 @@ public class EntityFairy extends EntityCreature {
 		this.hairColor = color;
 	}
 	
+	
 	/**
 	 * Retrieve the fairy's hair color as an EnumDyeColor.
 	 */
@@ -250,10 +276,16 @@ public class EntityFairy extends EntityCreature {
 	}
 	
 	/**
-	 * Does the fairy have pigtails as their hairstyle?
+	 * Set the fairy's hair style to an EnumHairStyle.
 	 */
-	public boolean hasPigtails() {
-		// TODO Auto-generated method stub
-		return true;
+	public void setHairStyle(EnumHairStyle style) {
+		this.hairStyle = style;
+	}
+	
+	/**
+	 * Retrieve the fairy's hair style as an EnumHairStyle.
+	 */
+	public EnumHairStyle getHairStyle() {
+		return this.hairStyle;
 	}
 }

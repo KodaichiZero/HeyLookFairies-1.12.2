@@ -2,7 +2,7 @@ package com.kodaichizero.heylookfairies;
 
 import com.kodaichizero.heylookfairies.init.InitRecipes;
 import com.kodaichizero.heylookfairies.proxy.CommonProxy;
-import com.kodaichizero.heylookfairies.util.References;
+import com.kodaichizero.heylookfairies.util.Reference;
 import com.kodaichizero.heylookfairies.util.handlers.RegistryHandler;
 
 import net.minecraftforge.fml.common.Mod;
@@ -15,14 +15,14 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 
 //Hey ho let's define this mod, baby!
-@Mod(modid = References.MOD_ID, name = References.NAME, version = References.VERSION)
+@Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION)
 public class Main {
 
 	
 	@Instance
 	public static Main instance;
 	
-	@SidedProxy(clientSide = References.CLIENT_PROXY_CLASS, serverSide = References.COMMON_PROXY_CLASS)
+	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
 	
 	@EventHandler
