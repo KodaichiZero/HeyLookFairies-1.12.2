@@ -1,0 +1,6 @@
+Structions
+
+95% White
+D2 H190 S0.25 V0.1
+Linear blur 2.5
+Darken Only
