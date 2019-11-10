@@ -4,6 +4,7 @@ import com.kodaichizero.heylookfairies.entity.EntityFairy;
 import com.kodaichizero.heylookfairies.entity.render.RenderFairy;
 import com.kodaichizero.heylookfairies.util.EnumHairStyle;
 import com.kodaichizero.heylookfairies.util.Reference;
+import com.kodaichizero.heylookfairies.util.RenderFairyUtil;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -35,15 +36,9 @@ public class LayerFairyHair implements LayerRenderer<EntityFairy> {
         if(entityFairyIn.getHairStyle() == this.hairStyle && !entityFairyIn.isInvisible()) {
             this.fairyRenderer.bindTexture(texture);
 
-            //Get the fairy's hair color and color the model.
-            // TODO make it so we don't calculate this every single frame.
-			float[] colors = entityFairyIn.getHairColor().getColorComponentValues().clone();
-			
-			float avg = (colors[0] + colors[1] + colors[2]) / 3F;
-			for(int i = 0; i < 3; i++) {
-				colors[i] = ((colors[i] * 5F) + avg) / 6F;
-			}
-			
+            Object dye = entityFairyIn.getHairColor();
+            float[] colors = RenderFairyUtil.getColorComponents(dye);
+            
             GlStateManager.color(colors[0], colors[1], colors[2]);
 
             this.hairModel.setModelAttributes(this.fairyRenderer.getMainModel());

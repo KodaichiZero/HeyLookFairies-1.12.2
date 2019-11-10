@@ -2,6 +2,7 @@ package com.kodaichizero.heylookfairies.util;
 
 import java.util.List;
 import com.kodaichizero.heylookfairies.entity.EntityFairy;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
@@ -18,9 +19,9 @@ public class EntityFairyUtil {
 		List<EntityFairy> fairies = player.world.getEntitiesWithinAABB(EntityFairy.class, new AxisAlignedBB(pos.x - 5D, pos.y - 5D, pos.z - 5D, pos.x + 5D, pos.y + 5D, pos.z + 5D));
 		for(EntityFairy fairy : fairies) {
 			if(fairy.isShoulderRiding()) {
-				if(fairy.shoulderSide == EnumShoulderSide.LEFT) {
+				if(fairy.getShoulderSide() == EnumShoulderSide.LEFT) {
 					left = true;
-				} else if(fairy.shoulderSide == EnumShoulderSide.RIGHT) {
+				} else if(fairy.getShoulderSide() == EnumShoulderSide.RIGHT) {
 					right = true;
 				}
 			}

@@ -25,15 +25,13 @@ public class ModelFairyPigtails extends ModelBase {
     public ModelRenderer hairPigtailRightSmall;
 	
 	public ModelFairyPigtails() {
-		//float expandAmount = 0;
-		float verticalOffset = 0F;
         this.textureWidth = 32;
         this.textureHeight = 32;
     
 	    //Top
 	    this.hairTop = new ModelRenderer(this, 0, 16);
 	    this.hairTop.addBox(-3.0F, -7.0F, -3.0F, 6, 1, 6);
-	    this.hairTop.setRotationPoint(0.0F, 0.0F + verticalOffset, 0.0F);
+	    this.hairTop.setRotationPoint(0.0F, 0.0F, 0.0F);
 	    
 	    //Front
 	    this.hairFrontLeft = new ModelRenderer(this, 0, 0);
@@ -78,7 +76,7 @@ public class ModelFairyPigtails extends ModelBase {
 	    this.hairTop.addChild(hairPigtailLeftBig);
 	    
 	    this.hairPigtailLeftSmall = new ModelRenderer(this, 16, 3);
-	    this.hairPigtailLeftSmall.addBox(-3.5F, -2.5F, -1.0F, 1, 3, 2);
+	    this.hairPigtailLeftSmall.addBox(-4.0F, -2.5F, -1.0F, 1, 3, 2);
 	    this.hairPigtailLeftBig.addChild(hairPigtailLeftSmall);
 	    
 	    //Right Pigtail
@@ -88,7 +86,7 @@ public class ModelFairyPigtails extends ModelBase {
 	    this.hairTop.addChild(hairPigtailRightBig);
 	    
 	    this.hairPigtailRightSmall = new ModelRenderer(this, 16, 3);
-	    this.hairPigtailRightSmall.addBox(2.5F, -2.5F, -1.0F, 1, 3, 2);
+	    this.hairPigtailRightSmall.addBox(3.0F, -2.5F, -1.0F, 1, 3, 2);
 	    this.hairPigtailRightBig.addChild(hairPigtailRightSmall);
 	}
 	

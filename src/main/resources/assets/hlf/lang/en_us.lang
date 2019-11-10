@@ -13,3 +13,21 @@ entity.fairy.name=Fairy
 //Hair Styles
 hairstyle.pigtails.name=Pigtails
 hairstyle.bigbun.name=Big Bun
+
+//Magic Dye colors
+magicdye.cottoncandy.name=Cotton Candy
+magicdye.tangerine.name=Tangerine
+magicdye.turquoise.name=Turquoise
+magicdye.lavender.name=Lavender
+magicdye.bubble_gum.name=Bubble Gum
+magicdye.honey.name=Honey
+magicdye.aqua.name=Aqua
+magicdye.lemongrass.name=Lemongrass
+magicdye.eggplant.name=Eggplant
+magicdye.pine.name=Pine
+magicdye.beeswax.name=Beeswax
+magicdye.mahogany.name=Mahogany
+magicdye.periwinkle.name=Periwinkle
+magicdye.indigo.name=Indigo
+magicdye.cosmic.name=Cosmic
+magicdye.pearl.name=Pearl

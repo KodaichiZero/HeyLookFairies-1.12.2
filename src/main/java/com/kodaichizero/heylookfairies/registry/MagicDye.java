@@ -11,6 +11,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
 
+@Deprecated
 @ObjectHolder(Reference.MOD_ID)
 public class MagicDye extends IForgeRegistryEntry.Impl<MagicDye> {
 

@@ -5,6 +5,7 @@ import com.kodaichizero.heylookfairies.registry.MagicDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+@Deprecated
 public class DyeUtil {
 
 	public static ItemStack createDye(ItemStack stack, MagicDye dye) {

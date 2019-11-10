@@ -11,25 +11,25 @@ public enum EnumHairStyle {
 	PIGTAILS(0, "pigtails", new ModelFairyPigtails()),
 	BIGBUN(1, "bigbun", new ModelFairyBigbun());
 
-	private int index;
+	private int meta;
 	private String name;
 	private String displayName;
 	private ModelBase model;
 	
 	private static final EnumHairStyle[] ID_LOOKUP = new EnumHairStyle[values().length];
 	
-	private EnumHairStyle(int index, String name, ModelBase model) {
-		this.index = index;
+	private EnumHairStyle(int meta, String name, ModelBase model) {
+		this.meta = meta;
 		this.name = name;
-		this.displayName = Main.proxy.getHairstyleDisplayName(name);
+		this.displayName = Main.proxy.getHairStyleDisplayName(name);
 		this.model = model;
 	}
 	
 	/**
 	 * Get the ID of the hair style.
 	 */
-    public int getId() {
-        return this.index;
+    public int getMetadata() {
+        return this.meta;
     }
     
 	/**
@@ -49,10 +49,10 @@ public enum EnumHairStyle {
 	/**
 	 * Returns a specified hair style based on the ID parameter.
 	 */
-	public static EnumHairStyle getById(int id) {
+	public static EnumHairStyle byMetadata(int id) {
 		if(id < 0) {
 			id = 0;
-		} else if(id > values().length) {
+		} else if(id >= values().length) {
 			id = values().length - 1;
 		}
 		
@@ -78,31 +78,7 @@ public enum EnumHairStyle {
 	 */
 	static {
         for (EnumHairStyle enumhairstyle : values()) {
-        	ID_LOOKUP[enumhairstyle.getId()] = enumhairstyle;
+        	ID_LOOKUP[enumhairstyle.getMetadata()] = enumhairstyle;
         }
     }
-
-	/*
-	@Override
-	public EnumHairStyle setRegistryName(ResourceLocation name) {
-		if (getRegistryName() != null) {
-            throw new IllegalStateException("Attempted to set registry name with existing registry name! New: " + name + " Old: " + getRegistryName());
-		}
-
-        this.registryName = GameData.checkPrefix(name);
-        return (EnumHairStyle)this;
-	}
-
-	@Override
-	public ResourceLocation getRegistryName() {
-		if (delegate.name() != null) return delegate.name();
-        return registryName != null ? registryName : null;
-	}
-
-	@Override
-	public Class<EnumHairStyle> getRegistryType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	*/
 }
