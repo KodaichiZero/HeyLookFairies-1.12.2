@@ -18,6 +18,7 @@ public class RenderFairy extends RenderLiving<EntityFairy> {
 		super(manager, new ModelFairy(), 0.2F);
 		this.addLayer(new LayerFairyHair(this, EnumHairStyle.PIGTAILS));
 		this.addLayer(new LayerFairyHair(this, EnumHairStyle.BIGBUN));
+		this.addLayer(new LayerFairyHair(this, EnumHairStyle.BRAIDEDPONYTAIL));
 	}
 
 	@Override

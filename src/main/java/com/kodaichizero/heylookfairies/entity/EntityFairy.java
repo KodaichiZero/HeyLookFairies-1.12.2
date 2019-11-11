@@ -50,7 +50,7 @@ public class EntityFairy extends EntityCreature {
 		this.dataManager.register(shoulderSideID, EnumShoulderSide.NONE.getByte());
 		this.dataManager.register(hairStyleID, (byte)rand.nextInt(EnumHairStyle.getLength()));
 		this.dataManager.register(hairColorID, (byte)rand.nextInt(16));
-		this.dataManager.register(isHairColorMagic, rand.nextInt(2) == 0);
+		this.dataManager.register(isHairColorMagic, true); //rand.nextInt(2) == 0);
 	}
 
 	/**

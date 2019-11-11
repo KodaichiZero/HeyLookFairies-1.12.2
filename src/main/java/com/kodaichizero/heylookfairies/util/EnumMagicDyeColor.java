@@ -17,10 +17,10 @@ public enum EnumMagicDyeColor {
 	PINE(9, "pine", "348063"),
 	BEESWAX(10, "beeswax", "b6985f"),
 	MAHOGANY(11, "mahogany", "a14c4c"),
-	PERIWINKLE(12, "periwinkle", "c8ccff"),
+	PERIWINKLE(12, "periwinkle", "bbceff"),
 	INDIGO(13, "indigo", "6f5fd9"),
 	COSMIC(14, "cosmic", "3b2e66"),
-	PEARL(15, "pearl", "fae0ff");
+	PEARL(15, "pearl", "efcefe");
 
 	private int meta;
 	private String name;
