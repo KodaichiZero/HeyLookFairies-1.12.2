@@ -2,9 +2,9 @@ package com.kodaichizero.heylookfairies.entity.render.layer;
 
 import com.kodaichizero.heylookfairies.entity.EntityFairy;
 import com.kodaichizero.heylookfairies.entity.render.RenderFairy;
-import com.kodaichizero.heylookfairies.util.EnumHairStyle;
 import com.kodaichizero.heylookfairies.util.Reference;
 import com.kodaichizero.heylookfairies.util.RenderFairyUtil;
+import com.kodaichizero.heylookfairies.util.enumerator.EnumHairStyle;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -25,7 +25,7 @@ public class LayerFairyHair implements LayerRenderer<EntityFairy> {
         this.fairyRenderer = fairyRendererIn;
         this.hairStyle = hairStyle;
         this.hairModel = hairStyle.getModel();
-        this.texture = new ResourceLocation(Reference.MOD_ID + ":textures/entities/fairyhair_" + hairStyle.getName() + ".png");
+        this.texture = new ResourceLocation(Reference.MOD_ID + ":textures/entities/fairyhair_" + hairStyle.getUnlocalizedName() + ".png");
     }
 
 	/**

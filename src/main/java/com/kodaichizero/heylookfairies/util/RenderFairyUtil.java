@@ -1,5 +1,7 @@
 package com.kodaichizero.heylookfairies.util;
 
+import com.kodaichizero.heylookfairies.util.enumerator.EnumMagicDyeColor;
+
 import net.minecraft.item.EnumDyeColor;
 
 public class RenderFairyUtil {

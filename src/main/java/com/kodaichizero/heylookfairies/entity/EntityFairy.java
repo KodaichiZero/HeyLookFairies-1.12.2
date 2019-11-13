@@ -1,43 +1,66 @@
 package com.kodaichizero.heylookfairies.entity;
 
-import com.kodaichizero.heylookfairies.util.EnumShoulderSide;
-import com.kodaichizero.heylookfairies.util.EntityFairyUtil;
-import com.kodaichizero.heylookfairies.util.EnumHairStyle;
-import com.kodaichizero.heylookfairies.util.EnumMagicDyeColor;
+import com.kodaichizero.heylookfairies.util.enumerator.EnumHairStyle;
+import com.kodaichizero.heylookfairies.util.enumerator.EnumMagicDyeColor;
+import com.kodaichizero.heylookfairies.util.enumerator.EnumShoulderSide;
 
+import javax.annotation.Nullable;
+
+import com.kodaichizero.heylookfairies.util.EntityFairyUtil;
+
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWaterFlying;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.EntityFlyHelper;
+import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.pathfinding.PathNavigateFlying;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityFairy extends EntityCreature {
+public class EntityFairy extends EntityCreature implements EntityFlying {
 	
 	public static final DataParameter<Integer> shoulderRidingEntityID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.VARINT);
 	public static final DataParameter<Byte> shoulderSideID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	public static final DataParameter<Byte> hairStyleID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	public static final DataParameter<Byte> hairColorID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	public static final DataParameter<Boolean> isHairColorMagic = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BOOLEAN);
+	public static final DataParameter<Boolean> flightMode = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BOOLEAN);
+	
+	public EntityFlyHelper moveHelperFly;
+	
+	//========================
+	//Initialization Methods
+	//========================
 	
 	public EntityFairy(World worldIn) {
 		super(worldIn);
-		this.setSize(0.325F, 0.45F);
+		this.setSize(0.4F, 0.6F);
+		this.moveHelperFly = new EntityFlyHelper(this);
 	}
 	
 	/**
@@ -51,6 +74,7 @@ public class EntityFairy extends EntityCreature {
 		this.dataManager.register(hairStyleID, (byte)rand.nextInt(EnumHairStyle.getLength()));
 		this.dataManager.register(hairColorID, (byte)rand.nextInt(16));
 		this.dataManager.register(isHairColorMagic, true); //rand.nextInt(2) == 0);
+		this.dataManager.register(flightMode, false);
 	}
 
 	/**
@@ -68,12 +92,38 @@ public class EntityFairy extends EntityCreature {
 	/**
 	 * Set up the entity's basic attributes.
 	 */
-	@Override //Apply basic attributes.
+	@Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
+        this.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.2D);
     }
+	
+	/**
+	 * Other initialization applied on first spawn.
+	 */
+    @Nullable
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+        // TODO debug name tag for testing.
+    	String name = "";
+    	Object dye = this.getHairColor();
+        if(dye instanceof EnumDyeColor) {
+        	name = ((EnumDyeColor)dye).getUnlocalizedName() + ", ";
+        } else if(dye instanceof EnumMagicDyeColor) {
+        	name = ((EnumMagicDyeColor)dye).getUnlocalizedName() + ", ";
+        }
+        name += getHairStyle().getUnlocalizedName();
+        setCustomNameTag(name);
+        
+        return super.onInitialSpawn(difficulty, livingdata);
+    }
+
+	
+	//========================
+	//Complex Overrides
+	//========================
 	
 	/**
 	 * Fairies should always dismount if their rider is dead.
@@ -112,14 +162,15 @@ public class EntityFairy extends EntityCreature {
             double xOffset = MathHelper.cos((shoulderRidingEntity.renderYawOffset * (float)Math.PI / 180F) + (getShoulderSide() == EnumShoulderSide.LEFT ? (float)Math.PI : 0F)) * 0.4D;
             double zOffset = MathHelper.sin((shoulderRidingEntity.renderYawOffset * (float)Math.PI / 180F) + (getShoulderSide() == EnumShoulderSide.LEFT ? (float)Math.PI : 0F)) * 0.4D;
             this.setPosition(shoulderRidingEntity.posX + xOffset, shoulderRidingEntity.posY + (shoulderRidingEntity.isSneaking() ? 0.95D : 1.25D), shoulderRidingEntity.posZ + zOffset); 
-		} else if(!onGround && !isInWater() && !isInLava() && !isOnLadder() && !hasNoGravity() && !inFairyFlightMode()) {
+		} else if(!onGround && !isInWater() && !isInLava() && !isOnLadder() && !hasNoGravity()) {
+			
 			//This makes fairies fall slowly.
 			this.motionY += 0.05D;
 		}
 		
 		super.travel(strafe, vertical, forward);
 	}
-
+	
 	/**
 	 * Avoid suffocation damage and player damage when riding on that player's shoulder.
 	 */
@@ -177,12 +228,91 @@ public class EntityFairy extends EntityCreature {
     }
 	
 	/**
-	 * Used when dismounting a player's shoulder.
+	 * Stop colliding with the player we're riding.
 	 */
-	public void dismountShoulder() {
-		dataManager.set(shoulderRidingEntityID, -1);
-		dataManager.set(shoulderSideID, EnumShoulderSide.NONE.getByte());
+	@Override
+	protected void collideWithEntity(Entity entityIn) {
+		if(this.isShoulderRiding() && entityIn.getEntityId() == this.dataManager.get(shoulderRidingEntityID)) {
+			return;
+		}
+		
+		// TODO This needs to be removed eventually or reworked.
+		if(!world.isRemote && entityIn instanceof EntityChicken && !entityIn.isBeingRidden()) {
+            this.startRiding(entityIn);
+        }
+		
+		super.collideWithEntity(entityIn);
+    }
+	
+	/**
+	 * Stop colliding with the player we're riding.
+	 */
+	@Override
+    public void applyEntityCollision(Entity entityIn) {
+		if(this.isShoulderRiding() && entityIn.getEntityId() == this.dataManager.get(shoulderRidingEntityID)) {
+			return;
+		}
+		
+		super.applyEntityCollision(entityIn);
 	}
+	
+    /**
+     * Create path navigation.
+     */
+	@Override
+    protected PathNavigate createNavigator(World worldIn) {
+		if(inFlightMode() ) {
+	        PathNavigateFlying pathnavigateflying = new PathNavigateFlying(this, worldIn);
+	        pathnavigateflying.setCanOpenDoors(false);
+	        pathnavigateflying.setCanFloat(true);
+	        pathnavigateflying.setCanEnterDoors(true);
+	        return pathnavigateflying;
+		} else {
+			return new PathNavigateGround(this, worldIn);
+		}
+    }
+	
+	/**
+	 * Get Movement Helper
+	 */
+    public EntityMoveHelper getMoveHelper() {
+        if(inFlightMode()) {
+        	return this.moveHelperFly;
+        } else {
+        	return this.moveHelper;
+        }
+    }
+
+	
+    /**
+     * Helper method to write subclass entity data to NBT.
+     */
+	@Override
+    public void writeEntityToNBT(NBTTagCompound compound)
+    {
+        super.writeEntityToNBT(compound);
+        compound.setByte("hairStyleID", dataManager.get(hairStyleID));
+        compound.setByte("hairColorID", dataManager.get(hairColorID));
+        compound.setBoolean("isHairColorMagic", dataManager.get(isHairColorMagic));
+        compound.setBoolean("flightMode", dataManager.get(flightMode));
+    }
+
+    /**
+     * Helper method to read subclass entity data from NBT.
+     */
+	@Override
+    public void readEntityFromNBT(NBTTagCompound compound)
+    {
+        super.readEntityFromNBT(compound);
+        dataManager.set(hairStyleID, compound.getByte("hairStyleID"));
+        dataManager.set(hairColorID, compound.getByte("hairColorID"));
+        dataManager.set(isHairColorMagic, compound.getBoolean("isHairColorMagic"));
+        dataManager.set(flightMode, compound.getBoolean("flightMode"));
+    }
+	
+	//========================
+	//Simple Overrides
+	//========================
 	
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -209,9 +339,20 @@ public class EntityFairy extends EntityCreature {
     public void fall(float distance, float damageMultiplier) {
     }
 	
+	/**
+	 * Reduce the number of particles that appear when a fairy lands on the ground.
+	 */
+    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
+    	super.updateFallState(y, onGroundIn, state, pos);
+    	if(fallDistance > 3.0F) fallDistance = 3.0F;
+    }
+	
+	/**
+	 * Max number of fairies to be spawned in a chunk.
+	 */
 	@Override
     public int getMaxSpawnedInChunk() {
-        return 6;
+        return 4;
     }
 	
 	/**
@@ -239,6 +380,14 @@ public class EntityFairy extends EntityCreature {
     }
 	
 	/**
+	 * This is where the fairy's eyes are.
+	 */
+	@Override
+	public float getEyeHeight() {
+        return 0.5F;
+    }
+	
+	/**
 	 * Fairies don't need to jump as high as other mobs because they have low-gravity.
 	 */
 	@Override
@@ -247,33 +396,16 @@ public class EntityFairy extends EntityCreature {
     }
 	
 	/**
-	 * Stop colliding with the player we're riding.
+	 * Returns the fairy's gravity state.
 	 */
 	@Override
-    public void applyEntityCollision(Entity entityIn) {
-		if(this.isShoulderRiding() || entityIn.getEntityId() == this.dataManager.get(shoulderRidingEntityID)) { //&& shoulderRidingEntity != entityIn) {
-			return;
-		}
-		
-		super.applyEntityCollision(entityIn);
+	public boolean hasNoGravity() {
+		return dataManager.get(flightMode) || super.hasNoGravity();
 	}
 	
-	/**
-	 * Stop colliding with the player we're riding.
-	 */
-	@Override //Temporary, will allow a fairy to ride a chicken.
-	protected void collideWithEntity(Entity entityIn) {
-		if(this.isShoulderRiding() || entityIn.getEntityId() == this.dataManager.get(shoulderRidingEntityID)) { // && shoulderRidingEntity != entityIn) {
-			return;
-		}
-		
-		// TODO This needs to be removed eventually or reworked.
-		if(!world.isRemote && entityIn instanceof EntityChicken && !entityIn.isBeingRidden()) {
-            this.startRiding(entityIn);
-        }
-		
-		super.collideWithEntity(entityIn);
-    }
+	//========================
+	//Custom Methods
+	//========================
 
 	/**
 	 * Returns whether or not the fairy is riding on a player's shoulder.
@@ -303,11 +435,18 @@ public class EntityFairy extends EntityCreature {
 	}
 	
 	/**
+	 * Used when dismounting a player's shoulder.
+	 */
+	public void dismountShoulder() {
+		dataManager.set(shoulderRidingEntityID, -1);
+		dataManager.set(shoulderSideID, EnumShoulderSide.NONE.getByte());
+	}
+	
+	/**
 	 * Returns whether the fairy is currently engaged in fairy flight.
 	 */
-	private boolean inFairyFlightMode() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean inFlightMode() {
+		return dataManager.get(flightMode);
 	}
 	
 	/**

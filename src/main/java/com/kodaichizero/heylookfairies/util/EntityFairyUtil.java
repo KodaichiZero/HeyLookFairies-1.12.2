@@ -2,6 +2,7 @@ package com.kodaichizero.heylookfairies.util;
 
 import java.util.List;
 import com.kodaichizero.heylookfairies.entity.EntityFairy;
+import com.kodaichizero.heylookfairies.util.enumerator.EnumShoulderSide;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;

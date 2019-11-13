@@ -3,8 +3,8 @@ package com.kodaichizero.heylookfairies.entity.render;
 import com.kodaichizero.heylookfairies.entity.EntityFairy;
 import com.kodaichizero.heylookfairies.entity.model.ModelFairy;
 import com.kodaichizero.heylookfairies.entity.render.layer.LayerFairyHair;
-import com.kodaichizero.heylookfairies.util.EnumHairStyle;
 import com.kodaichizero.heylookfairies.util.Reference;
+import com.kodaichizero.heylookfairies.util.enumerator.EnumHairStyle;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -19,6 +19,7 @@ public class RenderFairy extends RenderLiving<EntityFairy> {
 		this.addLayer(new LayerFairyHair(this, EnumHairStyle.PIGTAILS));
 		this.addLayer(new LayerFairyHair(this, EnumHairStyle.BIGBUN));
 		this.addLayer(new LayerFairyHair(this, EnumHairStyle.BRAIDEDPONYTAIL));
+		this.addLayer(new LayerFairyHair(this, EnumHairStyle.NECKPILLOW));
 	}
 
 	@Override

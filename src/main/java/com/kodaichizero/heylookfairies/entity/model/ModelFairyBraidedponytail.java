@@ -1,15 +1,10 @@
 package com.kodaichizero.heylookfairies.entity.model;
 
-import java.util.Vector;
-
-import javax.vecmath.Vector2f;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec2f;
 
 public class ModelFairyBraidedponytail extends ModelBase {
 	
@@ -150,6 +145,12 @@ public class ModelFairyBraidedponytail extends ModelBase {
 
         //Ponytail Animation
         
+        //My math skills are unheard of.
+        //This right here is a function that I just came up with that is used for the ponytail animation, 
+        //which makes the intensity of the blowing affect proportional to how close they are moving in the direction on their look vector.
+        //This stops their ponytails from blowing sideways when riding your shoulder.
+        float angleAmount = Math.max(0.0F, (float)Math.sin((float)Math.atan2((entityIn.posZ - entityIn.prevPosZ), (entityIn.posX - entityIn.prevPosX)) - (entityIn.getRotationYawHead() * ((float)Math.PI / 180F))));
+        
         //Reset all rotation to start.
         hairPonytail1.rotateAngleX = hairPonytail2.rotateAngleX = hairPonytail3.rotateAngleX = hairPonytail4.rotateAngleX = 0.0F;
         
@@ -157,7 +158,7 @@ public class ModelFairyBraidedponytail extends ModelBase {
         hairPonytail1.rotateAngleX = hairPonytail2.rotateAngleX = headPitch * 0.017453292F * -0.5F;
         
         //Swing back according to movement speed
-        hairPonytail1.rotateAngleX += limbSwingAmount * 1.25F * (entityIn.onGround ? 1.0F : 0.75F);
+        hairPonytail1.rotateAngleX += limbSwingAmount * 1.25F * (entityIn.onGround ? 1.0F : 0.75F) * angleAmount;
         
         //Swing up when falling
         hairPonytail1.rotateAngleX -= Math.min(0.0F, entityIn.motionY) * 1.0F;
@@ -166,9 +167,9 @@ public class ModelFairyBraidedponytail extends ModelBase {
         hairPonytail4.rotateAngleX -= Math.min(0.0F, entityIn.motionY) * 0.5F;
         
         //Add some sweet gyrations.
-        hairPonytail1.rotateAngleX += MathHelper.cos(limbSwing) * limbSwingAmount * 0.5F * (entityIn.onGround ? 1.0F : 0.5F);
-        hairPonytail2.rotateAngleX += MathHelper.cos(limbSwing + ((float)Math.PI * 0.5F)) * limbSwingAmount * 0.75F * (entityIn.onGround ? 1.0F : 0.5F);
-        hairPonytail3.rotateAngleX += MathHelper.cos(limbSwing + ((float)Math.PI * 1.0F)) * limbSwingAmount * 1.0F * (entityIn.onGround ? 1.0F : 0.5F);
-        hairPonytail4.rotateAngleX += MathHelper.cos(limbSwing + ((float)Math.PI * 1.5F)) * limbSwingAmount * 1.25F * (entityIn.onGround ? 1.0F : 0.5F);
+        hairPonytail1.rotateAngleX += MathHelper.cos(limbSwing) * limbSwingAmount * 0.5F * (entityIn.onGround ? 1.0F : 0.5F) * angleAmount;
+        hairPonytail2.rotateAngleX += MathHelper.cos(limbSwing + ((float)Math.PI * 0.5F)) * limbSwingAmount * 0.75F * (entityIn.onGround ? 1.0F : 0.5F) * angleAmount;
+        hairPonytail3.rotateAngleX += MathHelper.cos(limbSwing + ((float)Math.PI * 1.0F)) * limbSwingAmount * 1.0F * (entityIn.onGround ? 1.0F : 0.5F) * angleAmount;
+        hairPonytail4.rotateAngleX += MathHelper.cos(limbSwing + ((float)Math.PI * 1.5F)) * limbSwingAmount * 1.25F * (entityIn.onGround ? 1.0F : 0.5F) * angleAmount;
 	}
 }

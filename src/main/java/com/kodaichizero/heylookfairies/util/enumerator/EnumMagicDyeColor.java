@@ -1,4 +1,4 @@
-package com.kodaichizero.heylookfairies.util;
+package com.kodaichizero.heylookfairies.util.enumerator;
 
 import com.kodaichizero.heylookfairies.Main;
 

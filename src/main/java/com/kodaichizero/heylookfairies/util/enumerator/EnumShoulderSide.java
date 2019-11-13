@@ -1,4 +1,4 @@
-package com.kodaichizero.heylookfairies.util;
+package com.kodaichizero.heylookfairies.util.enumerator;
 
 public enum EnumShoulderSide {
 	

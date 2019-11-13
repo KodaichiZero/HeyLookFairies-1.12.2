@@ -1,16 +1,18 @@
-package com.kodaichizero.heylookfairies.util;
+package com.kodaichizero.heylookfairies.util.enumerator;
 
 import net.minecraft.client.model.ModelBase;
 import com.kodaichizero.heylookfairies.Main;
 import com.kodaichizero.heylookfairies.entity.model.ModelFairyPigtails;
 import com.kodaichizero.heylookfairies.entity.model.ModelFairyBigbun;
 import com.kodaichizero.heylookfairies.entity.model.ModelFairyBraidedponytail;
+import com.kodaichizero.heylookfairies.entity.model.ModelFairyNeckpillow;
 
 public enum EnumHairStyle {
 	
 	PIGTAILS(0, "pigtails", new ModelFairyPigtails()),
 	BIGBUN(1, "bigbun", new ModelFairyBigbun()),
-	BRAIDEDPONYTAIL(2, "braidedponytail", new ModelFairyBraidedponytail());
+	BRAIDEDPONYTAIL(2, "braidedponytail", new ModelFairyBraidedponytail()),
+	NECKPILLOW(3, "neckpillow", new ModelFairyNeckpillow());
 
 	private int meta;
 	private String name;
@@ -36,7 +38,7 @@ public enum EnumHairStyle {
 	/**
 	 * Get the total number of available hair styles.
 	 */
-    public String getName() {
+    public String getUnlocalizedName() {
         return this.name;
     }
     
