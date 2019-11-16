@@ -78,14 +78,15 @@ public class ModelFairy extends ModelBase {
         
         this.rightLeg = new ModelRenderer(this, 44, 0);
         this.rightLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 6, 2);
-        this.rightLeg.setRotationPoint(-1F, 6.0F, 0.0F);
+        this.rightLeg.setRotationPoint(-1.0F, 6.0F, 0.0F);
         this.body.addChild(rightLeg);
         
         this.leftLeg = new ModelRenderer(this, 44, 0);
         this.leftLeg.mirror = true;
         this.leftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 6, 2);
-        this.leftLeg.setRotationPoint(1F, 6.0F, 0.0F);
+        this.leftLeg.setRotationPoint(1.0F, 6.0F, 0.0F);
         this.body.addChild(leftLeg);
+     
         
         //Wings
         this.leftWingMajora = new ModelRenderer(this, 1, 13);
@@ -242,6 +243,11 @@ public class ModelFairy extends ModelBase {
 	        this.leftArm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.25F;
 	        this.rightArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
 	        this.leftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
+        } else {
+        	this.rightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.225F + 0.25F;
+	        this.leftArm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.225 + 0.25F;
+	        this.rightArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.035F;
+	        this.leftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.035F;
         }
         
         //Wing Rotations

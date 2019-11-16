@@ -26,7 +26,6 @@ import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
@@ -53,7 +52,6 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 	public static final DataParameter<Byte> hairColorID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	public static final DataParameter<Boolean> isHairColorMagic = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BOOLEAN);
 	public static final DataParameter<Boolean> flightMode = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BOOLEAN);
-	public static final DataParameter<Byte> takeOffFrames = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	public static final DataParameter<Byte> wingCollapseFrames = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	
 	public final EntityMoveHelper walkHelper;
@@ -97,7 +95,6 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 		this.dataManager.register(hairColorID, (byte)rand.nextInt(16));
 		this.dataManager.register(isHairColorMagic, true); //rand.nextInt(2) == 0);
 		this.dataManager.register(flightMode, false);
-		this.dataManager.register(takeOffFrames, (byte)0);
 		this.dataManager.register(wingCollapseFrames, (byte)0);
 	}
 
@@ -164,13 +161,8 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 		
 			}
 			
-			//Tick down frames.
-			byte frames = getTakeOffFrames();
-			if(frames > 0) {
-				dataManager.set(takeOffFrames, (byte)(frames - 1));
-			}
-			
-			frames = getWingCollapseFrames();
+			//Tick down frames.			
+			byte frames = getWingCollapseFrames();
 			if(frames > 0) {
 				dataManager.set(wingCollapseFrames, (byte)(frames - 1));
 			}
@@ -236,10 +228,6 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
             double xOffset = MathHelper.cos((shoulderRidingEntity.renderYawOffset * (float)Math.PI / 180F) + (getShoulderSide() == EnumShoulderSide.LEFT ? (float)Math.PI : 0F)) * 0.4D;
             double zOffset = MathHelper.sin((shoulderRidingEntity.renderYawOffset * (float)Math.PI / 180F) + (getShoulderSide() == EnumShoulderSide.LEFT ? (float)Math.PI : 0F)) * 0.4D;
             this.setPosition(shoulderRidingEntity.posX + xOffset, shoulderRidingEntity.posY + (shoulderRidingEntity.isSneaking() ? 0.95D : 1.25D), shoulderRidingEntity.posZ + zOffset); 
-		} else if(getFlightMode() && dataManager.get(takeOffFrames) > 0) {
-			//Generate a burst of upward movement.
-			this.motionY = 0.1D;
-			
 		} else if(!onGround && !isInWater() && !isInLava() && !isOnLadder() && !hasNoGravity() && !getFlightMode()) {
 			
 			//Fall slowly because fairies have inherent low gravity.
@@ -584,8 +572,8 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 		dataManager.set(flightMode, flying);
 		if(prevFlightMode && !flying) {
 			dataManager.set(wingCollapseFrames, (byte)16);
-		} else if(!prevFlightMode && flying) {
-			dataManager.set(takeOffFrames, (byte)10);
+		} else if(prevFlightMode && !flying) {
+			motionY = 0.25F;
 		}
 		
 		if(flying) {
@@ -594,6 +582,7 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 		} else {
 			this.moveHelper = walkHelper;
 			this.navigator = walkNavigator;
+			this.setNoGravity(false);
 		}
 	}
 	
@@ -603,19 +592,11 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 	public boolean getFlightMode() {
 		return dataManager.get(flightMode);
 	}
-
 	/**
 	 * Get the remaining wing collapse frames.
 	 */
 	public byte getWingCollapseFrames() {
 		return dataManager.get(wingCollapseFrames);
-	}
-	
-	/**
-	 * Get the remaining take-off frames.
-	 */
-	private byte getTakeOffFrames() {
-		return dataManager.get(takeOffFrames);
 	}
 	
 	/**

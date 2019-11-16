@@ -29,6 +29,21 @@ public class FairyAIHover extends EntityAIBase {
     	
     	return should;
     }
+    
+    /**
+     * Returns whether the EntityAIBase should continue executing.
+     */
+    @Override
+    public boolean shouldContinueExecuting() {
+    	boolean should = false;
+    	if(this.entity instanceof EntityFairy) {
+    		EntityFairy fairy = (EntityFairy)entity;
+    		should = fairy.getFlightMode() && fairy.flyNavigator != null && fairy.flyNavigator.noPath();
+    	}
+    	
+    	return should;
+    }
+    
 
     /**
      * Keep ticking a continuous task that has already been started
@@ -39,18 +54,18 @@ public class FairyAIHover extends EntityAIBase {
     		EntityFairy fairy = (EntityFairy)entity;
     		
     		//To avoid null pointer exceptions.
-    		if(fairy.flyNavigator == null) {
+    		if(fairy.flyNavigator == null || !fairy.getFlightMode()) {
     			return;
     		}
 
     		//b = below, a = above
     		IBlockState b2 = fairy.world.getBlockState(fairy.getPosition().add(0D, -1.5D, 0.0D));
-    		IBlockState b1 = fairy.world.getBlockState(fairy.getPosition().add(0D, -0.5D, 0.0D));
-    		IBlockState a1 = fairy.world.getBlockState(fairy.getPosition().add(0D, 0.5D, 0.0D));
+    		IBlockState b1 = fairy.world.getBlockState(fairy.getPosition().add(0D, -1.0D, 0.0D));
+    		IBlockState a1 = fairy.world.getBlockState(fairy.getPosition().add(0D, 1.0D, 0.0D));
     		
     		boolean b2p = b2.getCollisionBoundingBox(fairy.world, fairy.getPosition().add(0D, -1.5D, 0.0D)) == Block.NULL_AABB;
-    		boolean b1p = b1.getCollisionBoundingBox(fairy.world, fairy.getPosition().add(0D, -0.5D, 0.0D)) == Block.NULL_AABB;
-    		boolean a1p = a1.getCollisionBoundingBox(fairy.world, fairy.getPosition().add(0D, 0.5D, 0.0D)) == Block.NULL_AABB;
+    		boolean b1p = b1.getCollisionBoundingBox(fairy.world, fairy.getPosition().add(0D, -1.0D, 0.0D)) == Block.NULL_AABB;
+    		boolean a1p = a1.getCollisionBoundingBox(fairy.world, fairy.getPosition().add(0D, 1.0D, 0.0D)) == Block.NULL_AABB;
     		
     		if((!b1p || !b2p) && a1p) {
     			fairy.motionY += 0.085D;
