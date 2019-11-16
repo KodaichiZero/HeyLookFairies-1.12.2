@@ -37,19 +37,17 @@ public class ModelFairy extends ModelBase {
     public ModelRenderer rightWingMinora;
 	
 	public ModelFairy() {
-		float expandAmount = 0;
-		float verticalOffset = 0F;
         this.textureWidth = 64;
         this.textureHeight = 32;
         
         //Define body pieces
         this.head = new ModelRenderer(this, 0, 0);
-        this.head.addBox(-3.0F, -6.0F, -3.0F, 6, 6, 6, expandAmount);
-        this.head.setRotationPoint(0.0F, 0.0F + verticalOffset, 0.0F);
+        this.head.addBox(-3.0F, -6.0F, -3.0F, 6, 6, 6);
+        this.head.setRotationPoint(0.0F, 0.0F, 0.0F);
         
         this.leftEar = new ModelRenderer(this, 50, 0);
         this.leftEar.addBox(-3.0F, -1.0F, -0.5F, 3, 1, 1);
-        this.leftEar.setRotationPoint(-3.0F, -3.0F + verticalOffset, 0.0F);
+        this.leftEar.setRotationPoint(-3.0F, -3.0F, 0.0F);
         this.head.addChild(leftEar);
         this.leftEarLobe = new ModelRenderer(this, 58, 0);
         this.leftEarLobe.addBox(-1.5F, 0F, -0.5F, 2, 1, 1);
@@ -57,7 +55,7 @@ public class ModelFairy extends ModelBase {
         
         this.rightEar = new ModelRenderer(this, 50, 0);
         this.rightEar.addBox(0F, -1.0F, -0.5F, 3, 1, 1);
-        this.rightEar.setRotationPoint(3.0F, -3.0F + verticalOffset, 0.0F);
+        this.rightEar.setRotationPoint(3.0F, -3.0F, 0.0F);
         this.rightEar.mirror = true;
         this.head.addChild(rightEar);
         this.rightEarLobe = new ModelRenderer(this, 58, 0);
@@ -66,48 +64,50 @@ public class ModelFairy extends ModelBase {
         this.rightEar.addChild(rightEarLobe);
         
         this.body = new ModelRenderer(this, 24, 0);
-        this.body.addBox(-2.0F, 0.0F, -1.0F, 4, 6, 2, expandAmount);
-        this.body.setRotationPoint(0.0F, 0.0F + verticalOffset, 0.0F);
+        this.body.addBox(-2.0F, 0.0F, -1.0F, 4, 6, 2);
+        this.body.setRotationPoint(0.0F, 0.0F, 0.0F);
         
         this.rightArm = new ModelRenderer(this, 36, 0);
-        this.rightArm.addBox(-1.0F, -1.0F, -1.0F, 2, 6, 2, expandAmount);
-        this.rightArm.setRotationPoint(-3.0F, 1.0F + verticalOffset, 0.0F);
+        this.rightArm.addBox(-1.0F, -1.0F, -1.0F, 2, 6, 2);
+        this.rightArm.setRotationPoint(-3.0F, 1.0F, 0.0F);
         
         this.leftArm = new ModelRenderer(this, 36, 0);
         this.leftArm.mirror = true;
-        this.leftArm.addBox(-1.0F, -1.0F, -1.0F, 2, 6, 2, expandAmount);
-        this.leftArm.setRotationPoint(3.0F, 1.0F + verticalOffset, 0.0F);
+        this.leftArm.addBox(-1.0F, -1.0F, -1.0F, 2, 6, 2);
+        this.leftArm.setRotationPoint(3.0F, 1.0F, 0.0F);
         
         this.rightLeg = new ModelRenderer(this, 44, 0);
-        this.rightLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 6, 2, expandAmount);
-        this.rightLeg.setRotationPoint(-1F, 6.0F + verticalOffset, 0.0F);
+        this.rightLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 6, 2);
+        this.rightLeg.setRotationPoint(-1F, 6.0F, 0.0F);
+        this.body.addChild(rightLeg);
         
         this.leftLeg = new ModelRenderer(this, 44, 0);
         this.leftLeg.mirror = true;
-        this.leftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 6, 2, expandAmount);
-        this.leftLeg.setRotationPoint(1F, 6.0F + verticalOffset, 0.0F);
+        this.leftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 6, 2);
+        this.leftLeg.setRotationPoint(1F, 6.0F, 0.0F);
+        this.body.addChild(leftLeg);
         
         //Wings
         this.leftWingMajora = new ModelRenderer(this, 1, 13);
-        this.leftWingMajora.addBox(-9.0F, -5.0F, 0F, 9, 9, 0, expandAmount + 0.01F);
-        this.leftWingMajora.setRotationPoint(-0.5F, 2.0F, 1.0F);
+        this.leftWingMajora.addBox(-9.0F, -5.0F, 0F, 9, 9, 0, 0.01F);
+        this.leftWingMajora.setRotationPoint(-0.5F, 2.0F, 1.25F);
         this.body.addChild(leftWingMajora);
         
         this.leftWingMinora = new ModelRenderer(this, 20, 13);
-        this.leftWingMinora.addBox(-7.0F, 0.0F, 0F, 7, 9, 0, expandAmount + 0.01F);
+        this.leftWingMinora.addBox(-7.0F, 0.0F, 0F, 7, 9, 0, 0.01F);
         this.leftWingMinora.setRotationPoint(-0.5F, 2.0F, 1.0F);
         this.body.addChild(leftWingMinora);
         
         this.rightWingMajora = new ModelRenderer(this, 1, 13);
         this.rightWingMajora.mirror = true;
-        this.rightWingMajora.addBox(0F, -5.0F, 0F, 9, 9, 0, expandAmount + 0.01F);
-        this.rightWingMajora.setRotationPoint(0.5F, 2.0F, 1.0F);
+        this.rightWingMajora.addBox(0F, -5.0F, 0F, 9, 9, 0, 0.01F);
+        this.rightWingMajora.setRotationPoint(0.5F, 2.0F, 1.26F);
         this.body.addChild(rightWingMajora);
         
         this.rightWingMinora = new ModelRenderer(this, 20, 13);
         this.rightWingMinora.mirror = true;
-        this.rightWingMinora.addBox(0F, 0.0F, 0F, 7, 9, 0, expandAmount + 0.01F);
-        this.rightWingMinora.setRotationPoint(0.5F, 2.0F, 1.0F);
+        this.rightWingMinora.addBox(0F, 0.0F, 0F, 7, 9, 0, 0.01F);
+        this.rightWingMinora.setRotationPoint(0.5F, 2.0F, 1.01F);
         this.body.addChild(rightWingMinora);
     }
 	
@@ -124,8 +124,6 @@ public class ModelFairy extends ModelBase {
 		this.body.render(scale);
         this.rightArm.render(scale);
         this.leftArm.render(scale);
-        this.rightLeg.render(scale);
-        this.leftLeg.render(scale);
 		
         GlStateManager.popMatrix();
     }
@@ -135,25 +133,42 @@ public class ModelFairy extends ModelBase {
 	 */
 	@Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-    	this.head.rotateAngleY = netHeadYaw * 0.017453292F;
+    	if(!(entityIn instanceof EntityFairy)) {
+    		//Why are we here if the entity isn't a fairy?!?
+    		return;
+    	}
+		EntityFairy fairy = (EntityFairy)entityIn;
+		
+		
+		//Head Look Stuff.
+		this.head.rotateAngleY = netHeadYaw * 0.017453292F;
         this.head.rotateAngleX = headPitch * 0.017453292F;
-
-        this.body.rotateAngleY = 0.0F;
         
-        this.rightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 2.0F * limbSwingAmount * 0.5F;
-        this.leftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
+        //Reset Limb Rotations
+        this.rightArm.rotateAngleX = 0.0F;
+        this.leftArm.rotateAngleX = 0.0F;
+        this.rightArm.rotateAngleY = 0.0F;
+        this.leftArm.rotateAngleY = 0.0F;
         this.rightArm.rotateAngleZ = 0.0F;
         this.leftArm.rotateAngleZ = 0.0F;
-        this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.rightLeg.rotateAngleX = 0.0F;
+        this.leftLeg.rotateAngleX = 0.0F;
         this.rightLeg.rotateAngleY = 0.0F;
         this.leftLeg.rotateAngleY = 0.0F;
         this.rightLeg.rotateAngleZ = 0.0F;
         this.leftLeg.rotateAngleZ = 0.0F;
+        
+        //Limb swinging during walking.
+        if(!fairy.getFlightMode()) {
+	        this.rightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 2.0F * limbSwingAmount * 0.5F;
+	        this.leftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
+	        this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+	        this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        }
 
         //Check if the fairy is riding on someone's shoulder.
         boolean shoulderRiding = false;
-        if(entityIn instanceof EntityFairy && ((EntityFairy)entityIn).isShoulderRiding() ) {
+        if(fairy.isShoulderRiding() ) {
         	shoulderRiding = true;
         }
         
@@ -169,9 +184,8 @@ public class ModelFairy extends ModelBase {
             this.leftLeg.rotateAngleZ = -0.07853982F;
         }
 
-        this.rightArm.rotateAngleY = 0.0F;
-        this.rightArm.rotateAngleZ = 0.0F;
-
+        //Arm Swinging Stuff.
+        this.body.rotateAngleY = 0.0F;
         if (this.swingProgress > 0.0F)
         {
             EnumHandSide enumhandside = this.getMainHand(entityIn);
@@ -198,37 +212,75 @@ public class ModelFairy extends ModelBase {
             modelrenderer.rotateAngleZ += MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F;
         }
 
-        this.body.rotateAngleX = 0.0F;
+        //Flight Mode Body and limb rotation stuff
+        if(fairy.getFlightMode()) {
+        	this.body.rotateAngleX = (float)Math.PI / 3F;
+        	this.leftLeg.rotateAngleX -= (float)Math.PI / 4F;
+        	this.rightLeg.rotateAngleX -= (float)Math.PI / 4F;
+        	
+        	//Adjust rotations according to move speed
+        	this.body.rotateAngleX += ((float)Math.PI / 6F) * limbSwingAmount;
+        	this.leftLeg.rotateAngleX += ((float)Math.PI / 6F) * limbSwingAmount;
+        	this.rightLeg.rotateAngleX += ((float)Math.PI / 6F) * limbSwingAmount;
+        	
+        	this.leftArm.rotateAngleX += ((float)Math.PI / 4F) * limbSwingAmount;
+        	this.rightArm.rotateAngleX += ((float)Math.PI / 4F) * limbSwingAmount;
+        } else if(fairy.getWingCollapseFrames() > 8) {
+        	//float amount = (float)Math.max(0, (8 - (fairy.getWingCollapseFrames() - 12))) / 8F;
+        	float amount = (float)(fairy.getWingCollapseFrames() - 8) / 8F;
+        	
+        	this.body.rotateAngleX = (float)MathHelper.clampedLerp(0D, (float)Math.PI / 3F, amount);
+        	this.leftLeg.rotateAngleX = -(float)MathHelper.clampedLerp(0D, (float)Math.PI / 4F, amount);
+        	this.rightLeg.rotateAngleX = -(float)MathHelper.clampedLerp(0D, (float)Math.PI / 4F, amount);
+        } else {
+        	this.body.rotateAngleX = 0F;
+        }
 
-        this.rightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-        this.leftArm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-        this.rightArm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-        this.leftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-        
+        //Idle swaying of arms.
+        if(!fairy.getFlightMode()) {
+	        this.rightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.25F;
+	        this.leftArm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.25F;
+	        this.rightArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
+	        this.leftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
+        }
         
         //Wing Rotations
-        this.leftWingMajora.rotateAngleX = -(float)Math.PI * (8F / 9F);
-        this.rightWingMajora.rotateAngleX = -(float)Math.PI * (8F / 9F);
-        this.leftWingMinora.rotateAngleX = (float)Math.PI * (1F / 10F);
-        this.rightWingMinora.rotateAngleX = (float)Math.PI * (1F / 10F);
         
-        this.leftWingMajora.rotateAngleZ = -(float)Math.PI / 5F;
-        this.rightWingMajora.rotateAngleZ = (float)Math.PI / 5F;
         
-        this.leftWingMajora.rotationPointZ = 2.5F;
-        this.rightWingMajora.rotationPointZ = 2.5F;
-        this.leftWingMinora.rotationPointZ = 2.0F;
-        this.rightWingMinora.rotationPointZ = 2.0F;
-        
-        this.leftWingMajora.rotationPointX = 1.5F;
-        this.rightWingMajora.rotationPointX = -1.5F;
-        this.leftWingMinora.rotationPointX = 1.5F;
-        this.rightWingMinora.rotationPointX = -1.5F;
-        //this.leftWingMajora.rotateAngleX = (float)Math.PI / 8F;
-        //this.rightWingMajora.rotateAngleX = (float)Math.PI / 8F;
-        
-        //this.leftWingMajora.rotateAngleZ = (float)Math.PI / 8F;
-        //this.rightWingMajora.rotateAngleZ = -(float)Math.PI / 8F;
+        if(fairy.getFlightMode()) {
+        	float wingFlap = (float)((double)(System.currentTimeMillis() % 200L) / 200L) * (float)Math.PI * 2F;
+        	
+            this.leftWingMajora.rotateAngleY = 0.35F + MathHelper.cos(wingFlap) * ((float)Math.PI / 7F);
+            this.leftWingMinora.rotateAngleY = 0.3F + MathHelper.cos(wingFlap) * ((float)Math.PI / 7F);
+            this.rightWingMajora.rotateAngleY = -0.35F + -MathHelper.cos(wingFlap) * ((float)Math.PI / 7F);
+            this.rightWingMinora.rotateAngleY = -0.3F + -MathHelper.cos(wingFlap) * ((float)Math.PI / 7F);
+            this.leftWingMajora.rotateAngleZ = 0.0F;
+        	this.leftWingMinora.rotateAngleZ = 0.0F;
+        	this.rightWingMajora.rotateAngleZ = 0.0F;
+        	this.rightWingMinora.rotateAngleZ = 0.0F;
+        } else if(fairy.getWingCollapseFrames() > 0) {
+        	//float amount = (float)(20 - fairy.getWingCollapseFrames()) / 20.0F;
+        	float amount = (float)(fairy.getWingCollapseFrames()) / 16.0F;
+        	//amount = 1.0F - amount;
+        	
+            this.leftWingMajora.rotateAngleY = (float)MathHelper.clampedLerp(0.15F, 0.35F + ((float)Math.PI / 7F), amount);
+            this.leftWingMinora.rotateAngleY = (float)MathHelper.clampedLerp(0.1F, 0.3F + ((float)Math.PI / 7F), amount);
+            this.rightWingMajora.rotateAngleY = (float)MathHelper.clampedLerp(-0.15F, -0.35F - ((float)Math.PI / 7F), amount);
+            this.rightWingMinora.rotateAngleY = (float)MathHelper.clampedLerp(-0.1F, -0.3F - ((float)Math.PI / 7F), amount);
+            this.leftWingMajora.rotateAngleZ = (float)MathHelper.clampedLerp(-(float)Math.PI / 2F, 0.0F, amount);
+            this.leftWingMinora.rotateAngleZ = (float)MathHelper.clampedLerp(-(float)Math.PI / 10F, 0.0F, amount);
+        	this.rightWingMajora.rotateAngleZ = (float)MathHelper.clampedLerp((float)Math.PI / 2F, 0.0F, amount);
+        	this.rightWingMinora.rotateAngleZ = (float)MathHelper.clampedLerp((float)Math.PI / 10F, 0.0F, amount);
+        } else {
+        	this.leftWingMajora.rotateAngleY = 0.15F;
+            this.leftWingMinora.rotateAngleY = 0.1F;
+            this.rightWingMajora.rotateAngleY = -0.15F;
+            this.rightWingMinora.rotateAngleY = -0.1F;
+        	this.leftWingMajora.rotateAngleZ = -(float)Math.PI / 2F;
+        	this.leftWingMinora.rotateAngleZ = -(float)Math.PI / 10F;
+        	this.rightWingMajora.rotateAngleZ = (float)Math.PI / 2F;
+        	this.rightWingMinora.rotateAngleZ = (float)Math.PI / 10F;
+        }
 	}
 	
 	/**

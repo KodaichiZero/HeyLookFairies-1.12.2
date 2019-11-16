@@ -1,5 +1,7 @@
 package com.kodaichizero.heylookfairies.entity.model;
 
+import com.kodaichizero.heylookfairies.entity.EntityFairy;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -156,6 +158,9 @@ public class ModelFairyBraidedponytail extends ModelBase {
         
         //Start off by adjusting according to head angle
         hairPonytail1.rotateAngleX = hairPonytail2.rotateAngleX = headPitch * 0.017453292F * -0.5F;
+        
+        //Adjust more if in flying mode
+        if(entityIn instanceof EntityFairy && ((EntityFairy)entityIn).getFlightMode()) hairPonytail1.rotateAngleX += Math.PI / 8.0F;
         
         //Swing back according to movement speed
         hairPonytail1.rotateAngleX += limbSwingAmount * 1.25F * (entityIn.onGround ? 1.0F : 0.75F) * angleAmount;
