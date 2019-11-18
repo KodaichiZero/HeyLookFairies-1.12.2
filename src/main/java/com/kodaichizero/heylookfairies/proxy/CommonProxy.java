@@ -26,21 +26,14 @@ public class CommonProxy {
 	/**
 	 * Get the name of a magic dye color from the player's locale.
 	 */
-	public String getMagicDyeDisplayName(String name) {
+	public String getDisplayName(String name) {
 		return "";
 	}
 	
 	/**
 	 * Get an item's custom lore.
 	 */
-	public String getItemLore(String name) {
-		return "";
-	}
-	
-	/**
-	 * Get a block's custom lore.
-	 */
-	public String getBlockLore(String name) {
+	public String getLore(String name) {
 		return "";
 	}
 }

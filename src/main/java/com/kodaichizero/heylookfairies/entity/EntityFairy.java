@@ -52,6 +52,8 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 	public static final DataParameter<Byte> hairStyleID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	public static final DataParameter<Byte> hairColorID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	public static final DataParameter<Boolean> isHairColorMagic = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BOOLEAN);
+	public static final DataParameter<Byte> clothesColorID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
+	public static final DataParameter<Boolean> isClothesColorMagic = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BOOLEAN);
 	public static final DataParameter<Boolean> flightMode = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BOOLEAN);
 	public static final DataParameter<Byte> wingCollapseFrames = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	
@@ -92,11 +94,26 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 		super.entityInit();
 		this.dataManager.register(shoulderRidingEntityID, -1);
 		this.dataManager.register(shoulderSideID, EnumShoulderSide.NONE.getByte());
-		this.dataManager.register(hairStyleID, (byte)rand.nextInt(EnumHairStyle.getLength()));
-		this.dataManager.register(hairColorID, (byte)rand.nextInt(16));
-		this.dataManager.register(isHairColorMagic, true); //rand.nextInt(2) == 0);
 		this.dataManager.register(flightMode, false);
 		this.dataManager.register(wingCollapseFrames, (byte)0);
+		
+		//Cosmetics
+		this.dataManager.register(hairStyleID, (byte)rand.nextInt(EnumHairStyle.getLength()));
+		boolean magic = rand.nextInt(2) == 0;
+		this.dataManager.register(isHairColorMagic, magic);
+		if(magic) {
+			this.dataManager.register(hairColorID, (byte)rand.nextInt(EnumMagicDyeColor.getLength()));
+		} else {
+			this.dataManager.register(hairColorID, (byte)rand.nextInt(EnumDyeColor.values().length));
+		}
+		
+		magic = rand.nextInt(2) == 0;
+		this.dataManager.register(isClothesColorMagic, magic);
+		if(magic) {
+			this.dataManager.register(clothesColorID, (byte)rand.nextInt(EnumMagicDyeColor.getLength()));
+		} else {
+			this.dataManager.register(clothesColorID, (byte)rand.nextInt(EnumDyeColor.values().length));
+		}
 	}
 
 	/**
@@ -548,6 +565,33 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 			return EnumDyeColor.byMetadata(dataManager.get(hairColorID));
 		} else {
 			return EnumMagicDyeColor.byMetadata(dataManager.get(hairColorID));
+		}
+	}
+	
+	/**
+	 * Set the fairy's clothes color to an EnumDyeColor or EnumMagicDyeColor.
+	 */
+	public void setClothesColor(Object color) {
+		if(color instanceof EnumDyeColor) {
+			dataManager.set(isClothesColorMagic, false);
+			dataManager.set(clothesColorID, (byte)((EnumDyeColor)color).getMetadata());
+		} else if(color instanceof EnumMagicDyeColor) {
+			dataManager.set(isClothesColorMagic, true);
+			dataManager.set(clothesColorID, (byte)((EnumMagicDyeColor)color).getMetadata());
+		} else {
+			throw new IllegalArgumentException("ERROR: Object given was not an an EnumDyeColor or EnumMagicDyeColor!");
+		}
+	}
+	
+	/**
+	 * Retrieve the fairy's hair color as an EnumDyeColor or EnumMagicDyeColor.
+	 */
+	public Object getClothesColor() {
+		boolean magic = dataManager.get(isClothesColorMagic);
+		if(!magic) {
+			return EnumDyeColor.byMetadata(dataManager.get(clothesColorID));
+		} else {
+			return EnumMagicDyeColor.byMetadata(dataManager.get(clothesColorID));
 		}
 	}
 	

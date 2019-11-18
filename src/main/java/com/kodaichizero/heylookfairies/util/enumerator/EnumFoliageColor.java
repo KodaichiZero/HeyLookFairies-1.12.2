@@ -3,36 +3,26 @@ package com.kodaichizero.heylookfairies.util.enumerator;
 import com.kodaichizero.heylookfairies.Main;
 
 
-public enum EnumMagicDyeColor {
+public enum EnumFoliageColor {
 	
-	COTTON_CANDY(0, "cotton_candy", "ffaff0"),
-	TANGERINE(1, "tangerine", "ff9c50"),
-	TURQUOISE(2, "turquoise", "61cfbd"),
-	LAVENDER(3, "lavender", "ab97ff"),
-	BUBBLE_GUM(4, "bubble_gum", "f06cba"),
-	HONEY(5, "honey", "ffce73"),
-	AQUA(6, "aqua", "7ec8e6"),
-	LEMONGRASS(7, "lemongrass", "cae584"),
-	EGGPLANT(8, "eggplant", "7859ac"),
-	PINE(9, "pine", "348063"),
-	BEESWAX(10, "beeswax", "b6985f"),
-	MAHOGANY(11, "mahogany", "a14c4c"),
-	PERIWINKLE(12, "periwinkle", "bbceff"),
-	INDIGO(13, "indigo", "6f5fd9"),
-	COSMIC(14, "cosmic", "3b2e66"),
-	PEARL(15, "pearl", "efcefe");
+	OAK(0, "cotton_candy", "59ae30"),
+	BIRCH(1, "tangerine", "6ba941"),
+	SPRUCE(2, "turquoise", "68a464"),
+	JUNGLE(3, "lavender", "30bb0b"),
+	ACACIA(3, "lavender", "aea42a"),
+	DARK_OAK(3, "lavender", "59ae30");
 
 	private int meta;
 	private String name;
 	private String displayName;
 	private String color;
 	
-	private static final EnumMagicDyeColor[] ID_LOOKUP = new EnumMagicDyeColor[values().length];
+	private static final EnumFoliageColor[] ID_LOOKUP = new EnumFoliageColor[values().length];
 	
-	private EnumMagicDyeColor(int meta, String name, String color) {
+	private EnumFoliageColor(int meta, String name, String color) {
 		this.meta = meta;
 		this.name = name;
-		this.displayName = Main.proxy.getDisplayName("magicdye." + name);
+		this.displayName = Main.proxy.getDisplayName("foliage." + name);
 		this.color = color;
 	}
 	
@@ -60,7 +50,7 @@ public enum EnumMagicDyeColor {
 	/**
 	 * Returns a specified hair style based on the ID parameter.
 	 */
-	public static EnumMagicDyeColor byMetadata(int id) {
+	public static EnumFoliageColor byMetadata(int id) {
 		if(id < 0) {
 			id = 0;
 		} else if(id >= values().length) {
@@ -102,7 +92,7 @@ public enum EnumMagicDyeColor {
 	 * Fill out the static arrays.
 	 */
 	static {
-        for (EnumMagicDyeColor enumhairstyle : values()) {
+        for (EnumFoliageColor enumhairstyle : values()) {
         	ID_LOOKUP[enumhairstyle.getMetadata()] = enumhairstyle;
         }
     }

@@ -24,7 +24,7 @@ public enum EnumHairStyle {
 	private EnumHairStyle(int meta, String name, ModelBase model) {
 		this.meta = meta;
 		this.name = name;
-		this.displayName = Main.proxy.getHairStyleDisplayName(name);
+		this.displayName = Main.proxy.getHairStyleDisplayName("hairstyle." + name);
 		this.model = model;
 	}
 	

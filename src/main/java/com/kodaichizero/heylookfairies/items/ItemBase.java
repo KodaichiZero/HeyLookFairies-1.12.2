@@ -31,7 +31,7 @@ public class ItemBase extends Item implements IHasModel {
 	 */
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		String lore = Main.proxy.getItemLore(this.getUnlocalizedName());
+		String lore = Main.proxy.getLore(this.getUnlocalizedName());
 		if(lore != null && !lore.equals("")) {
 			tooltip.add(lore);
 		}

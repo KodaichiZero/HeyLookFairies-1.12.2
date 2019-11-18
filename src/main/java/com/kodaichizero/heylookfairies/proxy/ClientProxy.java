@@ -36,32 +36,18 @@ public class ClientProxy<E> extends CommonProxy {
 	}
 	
 	/**
-	 * Get the name of a hairstyle from the player's locale.
+	 * Get a localized display name.
 	 */
 	@Override
-	public String getHairStyleDisplayName(String name) {
-		return I18n.format("hairstyle." + name + ".name");
+	public String getDisplayName(String name) {
+		return I18n.format(name + ".name");
 	}
 	
 	/**
-	 * Get the name of a magic dye color from the player's locale.
+	 * Get an item or block's localized lore.
 	 */
 	@Override
-	public String getMagicDyeDisplayName(String name) {
-		return I18n.format("magicdye." + name + ".name");
-	}
-	
-	/**
-	 * Get an item's custom lore.
-	 */
-	public String getItemLore(String name) {
-		return I18n.format(name + ".lore");
-	}
-	
-	/**
-	 * Get a block's custom lore.
-	 */
-	public String getBlockLore(String name) {
+	public String getLore(String name) {
 		return I18n.format(name + ".lore");
 	}
 }
