@@ -23,6 +23,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityFlyHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.ai.EntityMoveHelper.Action;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
@@ -573,8 +574,12 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 		if(prevFlightMode && !flying) {
 			dataManager.set(wingCollapseFrames, (byte)16);
 		} else if(prevFlightMode && !flying) {
-			motionY = 0.25F;
+			motionY = 0.5D;
 		}
+		
+		this.moveHelper.action = Action.WAIT;
+		this.moveHelper.onUpdateMoveHelper();
+		this.navigator.clearPath();
 		
 		if(flying) {
 			this.moveHelper = flyHelper;

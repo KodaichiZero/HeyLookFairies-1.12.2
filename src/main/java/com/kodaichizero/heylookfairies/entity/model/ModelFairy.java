@@ -49,18 +49,20 @@ public class ModelFairy extends ModelBase {
         this.leftEar.addBox(-3.0F, -1.0F, -0.5F, 3, 1, 1);
         this.leftEar.setRotationPoint(-3.0F, -3.0F, 0.0F);
         this.head.addChild(leftEar);
+        
         this.leftEarLobe = new ModelRenderer(this, 58, 0);
         this.leftEarLobe.addBox(-1.5F, 0F, -0.5F, 2, 1, 1);
         this.leftEar.addChild(leftEarLobe);
         
         this.rightEar = new ModelRenderer(this, 50, 0);
+        this.rightEar.mirror = true;
         this.rightEar.addBox(0F, -1.0F, -0.5F, 3, 1, 1);
         this.rightEar.setRotationPoint(3.0F, -3.0F, 0.0F);
-        this.rightEar.mirror = true;
         this.head.addChild(rightEar);
+        
         this.rightEarLobe = new ModelRenderer(this, 58, 0);
-        this.rightEarLobe.addBox(-0.5F, 0F, -0.5F, 2, 1, 1);
         this.rightEarLobe.mirror = true;
+        this.rightEarLobe.addBox(-0.5F, 0F, -0.5F, 2, 1, 1);
         this.rightEar.addChild(rightEarLobe);
         
         this.body = new ModelRenderer(this, 24, 0);
@@ -140,10 +142,9 @@ public class ModelFairy extends ModelBase {
     	}
 		EntityFairy fairy = (EntityFairy)entityIn;
 		
-		
 		//Head Look Stuff.
 		this.head.rotateAngleY = netHeadYaw * 0.017453292F;
-        this.head.rotateAngleX = headPitch * 0.017453292F;
+		this.head.rotateAngleX = headPitch * 0.017453292F;
         
         //Reset Limb Rotations
         this.rightArm.rotateAngleX = 0.0F;
@@ -219,6 +220,9 @@ public class ModelFairy extends ModelBase {
         	this.leftLeg.rotateAngleX -= (float)Math.PI / 4F;
         	this.rightLeg.rotateAngleX -= (float)Math.PI / 4F;
         	
+        	this.leftLeg.rotateAngleZ = -0.15F;
+        	this.rightLeg.rotateAngleZ = 0.15F;
+        	
         	//Adjust rotations according to move speed
         	this.body.rotateAngleX += ((float)Math.PI / 6F) * limbSwingAmount;
         	this.leftLeg.rotateAngleX += ((float)Math.PI / 6F) * limbSwingAmount;
@@ -233,14 +237,20 @@ public class ModelFairy extends ModelBase {
         	this.body.rotateAngleX = (float)MathHelper.clampedLerp(0D, (float)Math.PI / 3F, amount);
         	this.leftLeg.rotateAngleX = -(float)MathHelper.clampedLerp(0D, (float)Math.PI / 4F, amount);
         	this.rightLeg.rotateAngleX = -(float)MathHelper.clampedLerp(0D, (float)Math.PI / 4F, amount);
+        	
+        	this.leftLeg.rotateAngleZ = (float)MathHelper.clampedLerp(0F, -0.15F, amount);
+        	this.rightLeg.rotateAngleZ = (float)MathHelper.clampedLerp(0F, 0.15F, amount);
         } else {
         	this.body.rotateAngleX = 0F;
+        	
+        	this.leftLeg.rotateAngleZ = 0F;
+        	this.rightLeg.rotateAngleZ = 0F;
         }
 
         //Idle swaying of arms.
         if(!fairy.getFlightMode()) {
-	        this.rightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.25F;
-	        this.leftArm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.25F;
+	        this.rightArm.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.5F;
+	        this.leftArm.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.5F;
 	        this.rightArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
 	        this.leftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
         } else {
@@ -269,19 +279,19 @@ public class ModelFairy extends ModelBase {
         	float amount = (float)(fairy.getWingCollapseFrames()) / 16.0F;
         	//amount = 1.0F - amount;
         	
-            this.leftWingMajora.rotateAngleY = (float)MathHelper.clampedLerp(0.15F, 0.35F + ((float)Math.PI / 7F), amount);
-            this.leftWingMinora.rotateAngleY = (float)MathHelper.clampedLerp(0.1F, 0.3F + ((float)Math.PI / 7F), amount);
-            this.rightWingMajora.rotateAngleY = (float)MathHelper.clampedLerp(-0.15F, -0.35F - ((float)Math.PI / 7F), amount);
-            this.rightWingMinora.rotateAngleY = (float)MathHelper.clampedLerp(-0.1F, -0.3F - ((float)Math.PI / 7F), amount);
+            this.leftWingMajora.rotateAngleY = (float)MathHelper.clampedLerp(0.35F, 0.35F + ((float)Math.PI / 7F), amount);
+            this.leftWingMinora.rotateAngleY = (float)MathHelper.clampedLerp(0.3F, 0.3F + ((float)Math.PI / 7F), amount);
+            this.rightWingMajora.rotateAngleY = (float)MathHelper.clampedLerp(-0.35F, -0.35F - ((float)Math.PI / 7F), amount);
+            this.rightWingMinora.rotateAngleY = (float)MathHelper.clampedLerp(-0.3F, -0.3F - ((float)Math.PI / 7F), amount);
             this.leftWingMajora.rotateAngleZ = (float)MathHelper.clampedLerp(-(float)Math.PI / 2F, 0.0F, amount);
             this.leftWingMinora.rotateAngleZ = (float)MathHelper.clampedLerp(-(float)Math.PI / 10F, 0.0F, amount);
         	this.rightWingMajora.rotateAngleZ = (float)MathHelper.clampedLerp((float)Math.PI / 2F, 0.0F, amount);
         	this.rightWingMinora.rotateAngleZ = (float)MathHelper.clampedLerp((float)Math.PI / 10F, 0.0F, amount);
         } else {
-        	this.leftWingMajora.rotateAngleY = 0.15F;
-            this.leftWingMinora.rotateAngleY = 0.1F;
-            this.rightWingMajora.rotateAngleY = -0.15F;
-            this.rightWingMinora.rotateAngleY = -0.1F;
+        	this.leftWingMajora.rotateAngleY = 0.35F;
+            this.leftWingMinora.rotateAngleY = 0.3F;
+            this.rightWingMajora.rotateAngleY = -0.35F;
+            this.rightWingMinora.rotateAngleY = -0.3F;
         	this.leftWingMajora.rotateAngleZ = -(float)Math.PI / 2F;
         	this.leftWingMinora.rotateAngleZ = -(float)Math.PI / 10F;
         	this.rightWingMajora.rotateAngleZ = (float)Math.PI / 2F;

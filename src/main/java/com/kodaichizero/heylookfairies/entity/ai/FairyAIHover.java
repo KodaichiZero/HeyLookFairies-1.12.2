@@ -13,7 +13,7 @@ public class FairyAIHover extends EntityAIBase {
 
     public FairyAIHover(EntityLiving entityIn) {
         this.entity = entityIn;
-        this.setMutexBits(4);
+        this.setMutexBits(1);
     }
 
     /**
@@ -24,7 +24,7 @@ public class FairyAIHover extends EntityAIBase {
     	boolean should = false;
     	if(this.entity instanceof EntityFairy) {
     		EntityFairy fairy = (EntityFairy)entity;
-    		should = fairy.getFlightMode() && fairy.flyNavigator != null && fairy.flyNavigator.noPath();
+    		should = !fairy.isShoulderRiding() && fairy.getFlightMode() && fairy.flyNavigator != null && fairy.flyNavigator.noPath();
     	}
     	
     	return should;
@@ -38,7 +38,7 @@ public class FairyAIHover extends EntityAIBase {
     	boolean should = false;
     	if(this.entity instanceof EntityFairy) {
     		EntityFairy fairy = (EntityFairy)entity;
-    		should = fairy.getFlightMode() && fairy.flyNavigator != null && fairy.flyNavigator.noPath();
+    		should = !fairy.isShoulderRiding() && fairy.getFlightMode() && fairy.flyNavigator != null && fairy.flyNavigator.noPath();
     	}
     	
     	return should;
@@ -53,8 +53,8 @@ public class FairyAIHover extends EntityAIBase {
     	if(this.entity instanceof EntityFairy) {
     		EntityFairy fairy = (EntityFairy)entity;
     		
-    		//To avoid null pointer exceptions.
-    		if(fairy.flyNavigator == null || !fairy.getFlightMode()) {
+    		//To stop executing if we somehow made it here.
+    		if(fairy.isShoulderRiding() || !fairy.getFlightMode() || fairy.flyNavigator == null) {
     			return;
     		}
 

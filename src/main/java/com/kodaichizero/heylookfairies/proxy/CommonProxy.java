@@ -29,4 +29,18 @@ public class CommonProxy {
 	public String getMagicDyeDisplayName(String name) {
 		return "";
 	}
+	
+	/**
+	 * Get an item's custom lore.
+	 */
+	public String getItemLore(String name) {
+		return "";
+	}
+	
+	/**
+	 * Get a block's custom lore.
+	 */
+	public String getBlockLore(String name) {
+		return "";
+	}
 }

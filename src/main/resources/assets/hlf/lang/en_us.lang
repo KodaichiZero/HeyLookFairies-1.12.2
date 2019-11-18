@@ -1,11 +1,19 @@
 //Items
 item.fairy_dust.name=Fairy Dust
+item.fairy_dust.lore=Your essential magical fairy wing residue.
 item.fairy_crust.name=Fairy Crust
+item.fairy_crust.lore=Non-magical coagulated fairy gore. Gross.
 item.cremated_fairy_crust.name=Cremated Fairy Crust
+item.cremated_fairy_crust.lore=Ceremonially recycled fairy remains. Use it like bonemeal.
 item.fairy_comm.name=Fairy-COMM
+item.fairy_comm.lore=A highly advanced fairy communication device with multiple functions.
+
 
 //Blocks
 tile.fairy_crust_block.name=Block of Fairy Crust
+tile.fairy_crust_block.lore=A literal pile of fairy guts. Keeps fairies away!
+tile.fungus_network_block.name=Ring Fungus Network
+tile.fungus_network_block.lore=The core of a fairy ring. Very fragile.
 
 //Entities
 entity.fairy.name=Fairy

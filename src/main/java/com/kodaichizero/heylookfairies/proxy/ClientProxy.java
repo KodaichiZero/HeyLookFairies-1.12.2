@@ -50,4 +50,18 @@ public class ClientProxy<E> extends CommonProxy {
 	public String getMagicDyeDisplayName(String name) {
 		return I18n.format("magicdye." + name + ".name");
 	}
+	
+	/**
+	 * Get an item's custom lore.
+	 */
+	public String getItemLore(String name) {
+		return I18n.format(name + ".lore");
+	}
+	
+	/**
+	 * Get a block's custom lore.
+	 */
+	public String getBlockLore(String name) {
+		return I18n.format(name + ".lore");
+	}
 }
