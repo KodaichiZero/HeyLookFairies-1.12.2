@@ -18,13 +18,6 @@ tile.fungus_network_block.lore=The core of a fairy ring. Very fragile.
 //Entities
 entity.fairy.name=Fairy
 
-//Hair Styles
-hairstyle.pigtails.name=Pigtails
-hairstyle.bigbun.name=Big Bun
-hairstyle.braidedponytail.name=Braided Ponytail
-hairstyle.neckpillow.name=Neck Pillow
-
-
 //Magic Dye colors
 magicdye.cottoncandy.name=Cotton Candy
 magicdye.tangerine.name=Tangerine
@@ -42,3 +35,15 @@ magicdye.periwinkle.name=Periwinkle
 magicdye.indigo.name=Indigo
 magicdye.cosmic.name=Cosmic
 magicdye.pearl.name=Pearl
+
+//Hair Styles
+hairstyle.pigtails.name=Pigtails
+hairstyle.bigbun.name=Big Bun
+hairstyle.braidedponytail.name=Braided Ponytail
+hairstyle.neckpillow.name=Neck Pillow
+
+//Clothing Styles
+clothes.colonialdress.name=Colonial Dress
+clothes.hulagirl.name=Hula Girl
+clothes.foresttunic.name=Forest Tunic
+clothes.shroomytop.name=Shroomy Top

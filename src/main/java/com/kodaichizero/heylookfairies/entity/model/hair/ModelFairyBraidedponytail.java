@@ -1,4 +1,4 @@
-package com.kodaichizero.heylookfairies.entity.model;
+package com.kodaichizero.heylookfairies.entity.model.hair;
 
 import com.kodaichizero.heylookfairies.entity.EntityFairy;
 

@@ -1,4 +1,4 @@
-package com.kodaichizero.heylookfairies.entity.model;
+package com.kodaichizero.heylookfairies.entity.model.hair;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

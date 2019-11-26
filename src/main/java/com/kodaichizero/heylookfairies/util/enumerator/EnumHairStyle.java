@@ -2,10 +2,10 @@ package com.kodaichizero.heylookfairies.util.enumerator;
 
 import net.minecraft.client.model.ModelBase;
 import com.kodaichizero.heylookfairies.Main;
-import com.kodaichizero.heylookfairies.entity.model.ModelFairyPigtails;
-import com.kodaichizero.heylookfairies.entity.model.ModelFairyBigbun;
-import com.kodaichizero.heylookfairies.entity.model.ModelFairyBraidedponytail;
-import com.kodaichizero.heylookfairies.entity.model.ModelFairyNeckpillow;
+import com.kodaichizero.heylookfairies.entity.model.hair.ModelFairyBigbun;
+import com.kodaichizero.heylookfairies.entity.model.hair.ModelFairyBraidedponytail;
+import com.kodaichizero.heylookfairies.entity.model.hair.ModelFairyNeckpillow;
+import com.kodaichizero.heylookfairies.entity.model.hair.ModelFairyPigtails;
 
 public enum EnumHairStyle {
 	
@@ -24,7 +24,7 @@ public enum EnumHairStyle {
 	private EnumHairStyle(int meta, String name, ModelBase model) {
 		this.meta = meta;
 		this.name = name;
-		this.displayName = Main.proxy.getHairStyleDisplayName("hairstyle." + name);
+		this.displayName = Main.proxy.getDisplayName("hairstyle." + name);
 		this.model = model;
 	}
 	

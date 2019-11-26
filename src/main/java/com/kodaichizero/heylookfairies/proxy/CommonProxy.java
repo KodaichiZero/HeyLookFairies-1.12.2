@@ -17,13 +17,6 @@ public class CommonProxy {
 	}
 
 	/**
-	 * Get the name of a hairstyle from the player's locale.
-	 */
-	public String getHairStyleDisplayName(String name) {
-		return "";
-	}
-
-	/**
 	 * Get the name of a magic dye color from the player's locale.
 	 */
 	public String getDisplayName(String name) {

@@ -51,4 +51,15 @@ public class RenderFairyUtil {
 			}
 		}
 	}
+	
+	/**
+	 * Used to convert an integer to individual color components brooooooo.
+	 * We use this when we have to convert a foliage color on the fly, this is the most efficient way.
+	 */
+	public static float[] intToComponents(int colorIn) {
+		float r = (float)((colorIn >> 16) & 0xFF) / 255F; 
+		float g = (float)((colorIn >> 8) & 0xFF) / 255F; 
+		float b = (float)((colorIn) & 0xFF) / 255F;
+		return new float[] {r, g, b};
+	}
 }

@@ -1,5 +1,6 @@
 package com.kodaichizero.heylookfairies.entity;
 
+import com.kodaichizero.heylookfairies.util.enumerator.EnumFairyClothes;
 import com.kodaichizero.heylookfairies.util.enumerator.EnumHairStyle;
 import com.kodaichizero.heylookfairies.util.enumerator.EnumMagicDyeColor;
 import com.kodaichizero.heylookfairies.util.enumerator.EnumShoulderSide;
@@ -52,6 +53,7 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 	public static final DataParameter<Byte> hairStyleID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	public static final DataParameter<Byte> hairColorID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	public static final DataParameter<Boolean> isHairColorMagic = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BOOLEAN);
+	public static final DataParameter<Byte> clothesID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	public static final DataParameter<Byte> clothesColorID = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BYTE);
 	public static final DataParameter<Boolean> isClothesColorMagic = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BOOLEAN);
 	public static final DataParameter<Boolean> flightMode = EntityDataManager.createKey(EntityFairy.class, DataSerializers.BOOLEAN);
@@ -107,6 +109,7 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 			this.dataManager.register(hairColorID, (byte)rand.nextInt(EnumDyeColor.values().length));
 		}
 		
+		this.dataManager.register(clothesID, (byte)rand.nextInt(EnumFairyClothes.getLength()));
 		magic = rand.nextInt(2) == 0;
 		this.dataManager.register(isClothesColorMagic, magic);
 		if(magic) {
@@ -358,6 +361,9 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
         compound.setByte("hairStyleID", dataManager.get(hairStyleID));
         compound.setByte("hairColorID", dataManager.get(hairColorID));
         compound.setBoolean("isHairColorMagic", dataManager.get(isHairColorMagic));
+        compound.setByte("clothesID", dataManager.get(clothesID));
+        compound.setByte("clothesColorID", dataManager.get(clothesColorID));
+        compound.setBoolean("isClothesColorMagic", dataManager.get(isClothesColorMagic));
         compound.setBoolean("flightMode", dataManager.get(flightMode));
         compound.setInteger("timeUntilNextDust", timeUntilNextDust);
         compound.setInteger("timeUntilModeChange", timeUntilModeChange);
@@ -373,6 +379,10 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
         dataManager.set(hairStyleID, compound.getByte("hairStyleID"));
         dataManager.set(hairColorID, compound.getByte("hairColorID"));
         dataManager.set(isHairColorMagic, compound.getBoolean("isHairColorMagic"));
+        
+        dataManager.set(clothesID, compound.getByte("clothesID"));
+        dataManager.set(clothesColorID, compound.getByte("clothesColorID"));
+        dataManager.set(isClothesColorMagic, compound.getBoolean("isClothesColorMagic"));
         
         //Extra code related to navigators needs to be run.
         setFlightMode(compound.getBoolean("flightMode"));
@@ -542,6 +552,20 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 	}
 	
 	/**
+	 * Set the fairy's hair style to an EnumHairStyle.
+	 */
+	public void setHairStyle(EnumHairStyle style) {
+		dataManager.set(hairStyleID, (byte)style.getMetadata());
+	}
+	
+	/**
+	 * Retrieve the fairy's hair style as an EnumHairStyle.
+	 */
+	public EnumHairStyle getHairStyle() {
+		return EnumHairStyle.byMetadata(dataManager.get(hairStyleID));
+	}
+	
+	/**
 	 * Set the fairy's hair color to an EnumDyeColor or EnumMagicDyeColor.
 	 */
 	public void setHairColor(Object color) {
@@ -569,6 +593,20 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 	}
 	
 	/**
+	 * Set the fairy's clothes to an EnumFairyClothing.
+	 */
+	public void setClothes(EnumFairyClothes clothes) {
+		dataManager.set(clothesID, (byte)clothes.getMetadata());
+	}
+	
+	/**
+	 * Retrieve the fairy's clothes style as an EnumFairyClothing.
+	 */
+	public EnumFairyClothes getClothes() {
+		return EnumFairyClothes.byMetadata(dataManager.get(clothesID));
+	}
+	
+	/**
 	 * Set the fairy's clothes color to an EnumDyeColor or EnumMagicDyeColor.
 	 */
 	public void setClothesColor(Object color) {
@@ -593,20 +631,6 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 		} else {
 			return EnumMagicDyeColor.byMetadata(dataManager.get(clothesColorID));
 		}
-	}
-	
-	/**
-	 * Set the fairy's hair style to an EnumHairStyle.
-	 */
-	public void setHairStyle(EnumHairStyle style) {
-		dataManager.set(hairStyleID, (byte)style.getMetadata());
-	}
-	
-	/**
-	 * Retrieve the fairy's hair style as an EnumHairStyle.
-	 */
-	public EnumHairStyle getHairStyle() {
-		return EnumHairStyle.byMetadata(dataManager.get(hairStyleID));
 	}
 	
 	/**

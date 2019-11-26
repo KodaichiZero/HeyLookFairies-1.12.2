@@ -16,6 +16,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public abstract class ModelFairyBase extends ModelBase {
 	
+	//We do multiple render passes for some fairy models, we use this to track which one.
+	public int renderStage;
+	
+	//The global value we use to scale the fairy's model.
 	public static final float fairyScale = 0.5F;
 	
 	//The base for the body pieces
@@ -160,8 +164,8 @@ public abstract class ModelFairyBase extends ModelBase {
         //Flight Mode Body and limb rotation stuff
         if(fairy.getFlightMode()) {
         	this.bodyBase.rotateAngleX = (float)Math.PI / 3F;
-        	this.leftLegBase.rotateAngleX -= (float)Math.PI / 4F;
-        	this.rightLegBase.rotateAngleX -= (float)Math.PI / 4F;
+        	this.leftLegBase.rotateAngleX -= (float)Math.PI / 6F;
+        	this.rightLegBase.rotateAngleX -= (float)Math.PI / 6F;
         	
         	this.leftLegBase.rotateAngleZ = -0.15F;
         	this.rightLegBase.rotateAngleZ = 0.15F;
@@ -178,8 +182,8 @@ public abstract class ModelFairyBase extends ModelBase {
         	float amount = (float)(fairy.getWingCollapseFrames() - 8) / 8F;
         	
         	this.bodyBase.rotateAngleX = (float)MathHelper.clampedLerp(0D, (float)Math.PI / 3F, amount);
-        	this.leftLegBase.rotateAngleX = -(float)MathHelper.clampedLerp(0D, (float)Math.PI / 4F, amount);
-        	this.rightLegBase.rotateAngleX = -(float)MathHelper.clampedLerp(0D, (float)Math.PI / 4F, amount);
+        	this.leftLegBase.rotateAngleX = -(float)MathHelper.clampedLerp(0D, (float)Math.PI / 6F, amount);
+        	this.rightLegBase.rotateAngleX = -(float)MathHelper.clampedLerp(0D, (float)Math.PI / 6F, amount);
         	
         	this.leftLegBase.rotateAngleZ = (float)MathHelper.clampedLerp(0F, -0.15F, amount);
         	this.rightLegBase.rotateAngleZ = (float)MathHelper.clampedLerp(0F, 0.15F, amount);
@@ -192,13 +196,13 @@ public abstract class ModelFairyBase extends ModelBase {
 
         //Idle swaying of arms.
         if(!fairy.getFlightMode()) {
-	        this.rightArmBase.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.5F;
-	        this.leftArmBase.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.5F;
+	        this.rightArmBase.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.25F;
+	        this.leftArmBase.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.25F;
 	        this.rightArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
 	        this.leftArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
         } else {
-        	this.rightArmBase.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.225F + 0.25F;
-	        this.leftArmBase.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.225 + 0.25F;
+        	this.rightArmBase.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.225F + 0.5F;
+	        this.leftArmBase.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.225 + 0.5F;
 	        this.rightArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.035F;
 	        this.leftArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.035F;
         }

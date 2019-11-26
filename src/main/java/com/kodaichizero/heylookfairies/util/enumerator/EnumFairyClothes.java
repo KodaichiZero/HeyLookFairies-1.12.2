@@ -1,24 +1,30 @@
 package com.kodaichizero.heylookfairies.util.enumerator;
 
-import net.minecraft.client.model.ModelBase;
 import com.kodaichizero.heylookfairies.Main;
-import com.kodaichizero.heylookfairies.entity.model.ModelFairyFullDress;
+import com.kodaichizero.heylookfairies.entity.model.ModelFairyBase;
+import com.kodaichizero.heylookfairies.entity.model.clothes.ModelFairyColonialDress;
+import com.kodaichizero.heylookfairies.entity.model.clothes.ModelFairyHulaGirl;
+import com.kodaichizero.heylookfairies.entity.model.clothes.ModelFairyShroomyTop;
+import com.kodaichizero.heylookfairies.entity.model.clothes.ModelFairyForestTunic;
 
-public enum EnumFairyClothing {
+public enum EnumFairyClothes {
 	
-	FULLDRESS(0, "fulldress", new ModelFairyFullDress());
+	COLONIALDRESS(0, "colonialdress", new ModelFairyColonialDress()),
+	HULAGIRL(1, "hulagirl", new ModelFairyHulaGirl()),
+	FORESTTUNIC(2, "foresttunic", new ModelFairyForestTunic()),
+	SHROOMYTOP(3, "shroomytop", new ModelFairyShroomyTop());
 
 	private int meta;
 	private String name;
 	private String displayName;
-	private ModelBase model;
+	private ModelFairyBase model;
 	
-	private static final EnumFairyClothing[] ID_LOOKUP = new EnumFairyClothing[values().length];
+	private static final EnumFairyClothes[] ID_LOOKUP = new EnumFairyClothes[values().length];
 	
-	private EnumFairyClothing(int meta, String name, ModelBase model) {
+	private EnumFairyClothes(int meta, String name, ModelFairyBase model) {
 		this.meta = meta;
 		this.name = name;
-		this.displayName = Main.proxy.getHairStyleDisplayName(name);
+		this.displayName = Main.proxy.getDisplayName("clothes." + name);
 		this.model = model;
 	}
 	
@@ -46,7 +52,7 @@ public enum EnumFairyClothing {
 	/**
 	 * Returns a specified hair style based on the ID parameter.
 	 */
-	public static EnumFairyClothing byMetadata(int id) {
+	public static EnumFairyClothes byMetadata(int id) {
 		if(id < 0) {
 			id = 0;
 		} else if(id >= values().length) {
@@ -66,7 +72,7 @@ public enum EnumFairyClothing {
 	/**
 	 * Gets the model which will be used in the render layer.
 	 */
-	public ModelBase getModel() {
+	public ModelFairyBase getModel() {
 		return model;
 	}
 
@@ -74,7 +80,7 @@ public enum EnumFairyClothing {
 	 * Fill out the static arrays.
 	 */
 	static {
-        for (EnumFairyClothing enumhairstyle : values()) {
+        for (EnumFairyClothes enumhairstyle : values()) {
         	ID_LOOKUP[enumhairstyle.getMetadata()] = enumhairstyle;
         }
     }

@@ -32,18 +32,18 @@ public class LayerFairyHair implements LayerRenderer<EntityFairy> {
 	 * Here's where we set the fancy render options, like hair color, before rendering the model.
 	 */
 	@Override
-	public void doRenderLayer(EntityFairy entityFairyIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if(entityFairyIn.getHairStyle() == this.hairStyle && !entityFairyIn.isInvisible()) {
+	public void doRenderLayer(EntityFairy entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        if(entity.getHairStyle() == this.hairStyle && !entity.isInvisible()) {
             this.fairyRenderer.bindTexture(texture);
 
-            Object dye = entityFairyIn.getHairColor();
+            Object dye = entity.getHairColor();
             float[] colors = RenderFairyUtil.getColorComponents(dye);
             
             GlStateManager.color(colors[0], colors[1], colors[2]);
 
             this.hairModel.setModelAttributes(this.fairyRenderer.getMainModel());
-            this.hairModel.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityFairyIn);
-            this.hairModel.render(entityFairyIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            this.hairModel.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entity);
+            this.hairModel.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         }
     }
 
