@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@Deprecated
 public class ModelRendererTrapezoid {
     /** The size of the texture file's width in pixels. */
     public float textureWidth;

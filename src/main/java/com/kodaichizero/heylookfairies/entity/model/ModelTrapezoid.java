@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@Deprecated
 public class ModelTrapezoid {
     /** The (x,y,z) vertex positions and (u,v) texture coordinates for each of the 8 points on a cube */
     private final PositionTextureVertex[] vertexPositions;
