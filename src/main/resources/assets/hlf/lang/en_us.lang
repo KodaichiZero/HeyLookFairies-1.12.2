@@ -7,7 +7,8 @@ item.cremated_fairy_crust.name=Cremated Fairy Crust
 item.cremated_fairy_crust.lore=Ceremonially recycled fairy remains. Use it like bonemeal.
 item.fairy_comm.name=Fairy-COMM
 item.fairy_comm.lore=A highly advanced fairy communication device with multiple functions.
-
+item.magic_dye.name=Magic Dye
+item.magic_dye.lore=Dye enhanced with fairy dust. Allows for additional colorations.
 
 //Blocks
 tile.fairy_crust_block.name=Block of Fairy Crust
@@ -19,7 +20,7 @@ tile.fungus_network_block.lore=The core of a fairy ring. Very fragile.
 entity.fairy.name=Fairy
 
 //Magic Dye colors
-magicdye.cottoncandy.name=Cotton Candy
+magicdye.cotton_candy.name=Cotton Candy
 magicdye.tangerine.name=Tangerine
 magicdye.turquoise.name=Turquoise
 magicdye.lavender.name=Lavender

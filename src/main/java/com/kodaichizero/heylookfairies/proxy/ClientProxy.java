@@ -2,6 +2,8 @@ package com.kodaichizero.heylookfairies.proxy;
 
 import com.kodaichizero.heylookfairies.entity.EntityFairy;
 import com.kodaichizero.heylookfairies.entity.render.RenderFairy;
+import com.kodaichizero.heylookfairies.init.InitItems;
+
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -18,6 +20,11 @@ public class ClientProxy<E> extends CommonProxy {
 	 */
 	@Override
 	public void registerItemRenderer(Item item, int meta, String id) {
+		if(item == InitItems.MAGIC_DYE) {
+			
+		} else {
+			
+		}
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
 	}
 

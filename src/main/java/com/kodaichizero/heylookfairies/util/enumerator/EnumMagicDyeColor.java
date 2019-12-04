@@ -85,6 +85,13 @@ public enum EnumMagicDyeColor {
 	}
 	
 	/**
+	 * Gets the color of the magic dye as an integer.
+	 */
+	public int getIntColor() {
+		return Integer.valueOf(color, 16);
+	}
+	
+	/**
 	 * Gets the color components as an array of floats.
 	 */
 	public float[] getColorComponentValues() {

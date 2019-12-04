@@ -1,19 +1,23 @@
-package com.kodaichizero.heylookfairies.util.handlers;
+package com.kodaichizero.heylookfairies.util.eventhandlers;
 
 import com.kodaichizero.heylookfairies.init.InitBlocks;
 import com.kodaichizero.heylookfairies.init.InitEntities;
 import com.kodaichizero.heylookfairies.init.InitItems;
 import com.kodaichizero.heylookfairies.util.IHasModel;
+import com.kodaichizero.heylookfairies.util.enumerator.EnumMagicDyeColor;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @EventBusSubscriber
-public class RegistryHandler {
+public class RegistryEventHandler {
 	
 	@SubscribeEvent
 	public static void onItemRegister(RegistryEvent.Register<Item> event) {
@@ -39,7 +43,19 @@ public class RegistryHandler {
 			}
 		}
 	}
+	
+	@SubscribeEvent
+	public static void onItemColorHandler(ColorHandlerEvent.Item event) {
+		event.getItemColors().registerItemColorHandler(new IItemColor() {
+            public int colorMultiplier(ItemStack stack, int tintIndex) {
+                return EnumMagicDyeColor.byMetadata(stack.getMetadata()).getIntColor();
+            }
+        }, InitItems.MAGIC_DYE);
+	}
 
+	/**
+	 * A hook in the mod's pre-inititalization to get all entities registered.
+	 */
 	public static void preInitRegistries() {
 		InitEntities.registerEntities();
 	}

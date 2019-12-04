@@ -2,8 +2,9 @@ package com.kodaichizero.heylookfairies.init;
 
 import java.util.ArrayList;
 
+import com.kodaichizero.heylookfairies.items.ItemCrematedFairyCrust;
+import com.kodaichizero.heylookfairies.items.ItemMagicDye;
 import com.kodaichizero.heylookfairies.items.ItemBase;
-import com.kodaichizero.heylookfairies.items.misc.CrematedFairyCrust;
 
 import net.minecraft.item.Item;
 
@@ -17,6 +18,6 @@ public class InitItems {
 	//Misc
 	public static final Item FAIRY_DUST = new ItemBase("fairy_dust");
 	public static final Item FAIRY_CRUST = new ItemBase("fairy_crust");
-	public static final Item CREMATED_FAIRY_CRUST = new CrematedFairyCrust("cremated_fairy_crust");
-
+	public static final Item CREMATED_FAIRY_CRUST = new ItemCrematedFairyCrust("cremated_fairy_crust");
+	public static final Item MAGIC_DYE = new ItemMagicDye("magic_dye");
 }

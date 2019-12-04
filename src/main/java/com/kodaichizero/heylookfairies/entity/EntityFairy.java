@@ -28,8 +28,10 @@ import net.minecraft.entity.ai.EntityMoveHelper.Action;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -222,8 +224,11 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 		    		
 		    		if(getFlightMode() || a1p) {
 		    			setFlightMode(!getFlightMode());
+		    		} else {
+		    			
+		    			//If it's not a good time to switch modes, we only reset the timer a little bit.
+		    			this.timeUntilModeChange = this.rand.nextInt(30) + 30;
 		    		}
-		            this.timeUntilModeChange = this.rand.nextInt(300) + 300;
 		        }
 			}
 		}
@@ -236,7 +241,6 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 	public void travel(float strafe, float vertical, float forward) {
 		EntityLivingBase shoulderRidingEntity = getShoulderRidingEntity();
 		if(shoulderRidingEntity != null) {
-			this.fallDistance = 0F;
 			this.prevOnGroundSpeedFactor = this.onGroundSpeedFactor = 0.0F;
 
 			this.motionX = shoulderRidingEntity.motionX;
@@ -282,39 +286,82 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		// TODO This is temporary and will be replaced by a Fairy-COMM function.
 		if(!world.isRemote && hand == EnumHand.MAIN_HAND) {
-			if(player.isSneaking()) {
+			if(player.getHeldItemMainhand().getItem() == Items.DYE) {
 				
-				//Manually toggle flight mode
-				setFlightMode(!getFlightMode());
-			} else {
-				
-				//Get off of shoulder if already riding.
-				EntityLivingBase shoulderRidingEntity = getShoulderRidingEntity();
-				if(shoulderRidingEntity != null && shoulderRidingEntity == player) {
-					
-					//This bit is important to ensure the fairy does not get clipped into the wall when dismounting.
-					double xOffset = MathHelper.cos((shoulderRidingEntity.renderYawOffset * (float)Math.PI / 180F) + (getShoulderSide() == EnumShoulderSide.LEFT ? (float)Math.PI : 0F)) * 0.1D;
-		            double zOffset = MathHelper.sin((shoulderRidingEntity.renderYawOffset * (float)Math.PI / 180F) + (getShoulderSide() == EnumShoulderSide.LEFT ? (float)Math.PI : 0F)) * 0.1D;
-		            this.setPosition(shoulderRidingEntity.posX + xOffset, shoulderRidingEntity.posY + 0.45D, shoulderRidingEntity.posZ + zOffset); 
-					this.dismountShoulder();
-					
-					//Reset the mode change counter
-					this.timeUntilModeChange = this.rand.nextInt(300);
-					return false;
+				//Use a dye to change the fairy's hair or clothes color.
+				int meta = player.getHeldItemMainhand().getMetadata();
+				if(player.isSneaking()) {
+					this.setClothesColor(EnumDyeColor.byDyeDamage(meta));
+				} else {
+					this.setHairColor(EnumDyeColor.byDyeDamage(meta));
 				}
 				
-				//Get on the shoulder if there is an empty spot.
-				EnumShoulderSide playerShoulder = EntityFairyUtil.playerHasFairyOnShoulder(player);
-				if(playerShoulder == EnumShoulderSide.NONE || playerShoulder == EnumShoulderSide.RIGHT) {
-					dataManager.set(shoulderRidingEntityID, player.getEntityId());
-					dataManager.set(shoulderSideID, EnumShoulderSide.LEFT.getByte());
-					setFlightMode(false);
-					return false;
-				} else if(playerShoulder == EnumShoulderSide.LEFT) {
-					dataManager.set(shoulderRidingEntityID, player.getEntityId());
-					dataManager.set(shoulderSideID, EnumShoulderSide.RIGHT.getByte());
-					setFlightMode(false);
-					return false;
+				return false;
+			} else if(player.getHeldItemMainhand().getItem() == InitItems.MAGIC_DYE) {
+				
+				//Use a magic dye to change the fairy's hair or clothes color.
+				int meta = player.getHeldItemMainhand().getMetadata();
+				if(player.isSneaking()) {
+					this.setClothesColor(EnumMagicDyeColor.byMetadata(meta));
+				} else {
+					this.setHairColor(EnumMagicDyeColor.byMetadata(meta));
+				}
+				
+				return false;
+			} else if(player.getHeldItemMainhand().getItem() == Items.SHEARS) {
+				
+				//Use shears to change clothes or hair style.
+				if(player.isSneaking()) {
+					int newStyle = this.getClothes().getMetadata() + 1;
+					if(newStyle >= EnumFairyClothes.getLength()) newStyle = 0;
+					this.setClothes(EnumFairyClothes.byMetadata(newStyle));
+				} else {
+					int newStyle = this.getHairStyle().getMetadata() + 1;
+					if(newStyle >= EnumHairStyle.getLength()) newStyle = 0;
+					this.setHairStyle(EnumHairStyle.byMetadata(newStyle));
+				}
+				
+				return false;
+			} else {
+			
+				//Otherwise...
+				if(player.isSneaking()) {
+					
+					//Manually toggle flight mode
+					setFlightMode(!getFlightMode());
+				} else {
+					
+					//Get off of shoulder if already riding.
+					EntityLivingBase shoulderRidingEntity = getShoulderRidingEntity();
+					if(shoulderRidingEntity != null && shoulderRidingEntity == player) {
+						
+						//This bit is important to ensure the fairy does not get clipped into the wall when dismounting.
+						double xOffset = MathHelper.cos((shoulderRidingEntity.renderYawOffset * (float)Math.PI / 180F) + (getShoulderSide() == EnumShoulderSide.LEFT ? (float)Math.PI : 0F)) * 0.1D;
+			            double zOffset = MathHelper.sin((shoulderRidingEntity.renderYawOffset * (float)Math.PI / 180F) + (getShoulderSide() == EnumShoulderSide.LEFT ? (float)Math.PI : 0F)) * 0.1D;
+			            this.setPosition(shoulderRidingEntity.posX + xOffset, shoulderRidingEntity.posY + 0.45D, shoulderRidingEntity.posZ + zOffset); 
+						this.dismountShoulder();
+						
+						//Reset the mode change counter
+						this.timeUntilModeChange = this.rand.nextInt(300);
+						return false;
+					} else {
+						
+						//Get on the shoulder if there is an empty spot.
+						EnumShoulderSide playerShoulder = EntityFairyUtil.playerHasFairyOnShoulder(player);
+						if(playerShoulder == EnumShoulderSide.NONE || playerShoulder == EnumShoulderSide.RIGHT) {
+							dataManager.set(shoulderRidingEntityID, player.getEntityId());
+							dataManager.set(shoulderSideID, EnumShoulderSide.LEFT.getByte());
+							setFlightMode(false);
+							this.dismountRidingEntity();
+							return false;
+						} else if(playerShoulder == EnumShoulderSide.LEFT) {
+							dataManager.set(shoulderRidingEntityID, player.getEntityId());
+							dataManager.set(shoulderSideID, EnumShoulderSide.RIGHT.getByte());
+							setFlightMode(false);
+							this.dismountRidingEntity();
+							return false;
+						}
+					}
 				}
 			}
 		}
@@ -412,6 +459,13 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 		// TODO Auto-generated method stub
 		return super.getDeathSound();
 	}
+	
+	/**
+	 * Fairies drop fairy crust when they die.
+	 */
+    protected Item getDropItem() {
+        return InitItems.FAIRY_CRUST;
+    }
 	
 	/**
 	 * Reduce vertical knockback because fairies have low gravity.
@@ -640,11 +694,16 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 		boolean prevFlightMode = dataManager.get(flightMode);
 		dataManager.set(flightMode, flying);
 		if(prevFlightMode && !flying) {
+			
+			//If we go from flying to not flying, we set these frames so we get a nice wing collapsing animation.
 			dataManager.set(wingCollapseFrames, (byte)16);
 		} else if(prevFlightMode && !flying) {
-			motionY = 0.5D;
+			
+			//If we go from not flying to flying, we get a big burst of upward movement.
+			motionY = 1.0D;
 		}
 		
+		//It is important that we switch the navigators around when we update the flight mode.
 		this.moveHelper.action = Action.WAIT;
 		this.moveHelper.onUpdateMoveHelper();
 		this.navigator.clearPath();
@@ -657,6 +716,9 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 			this.navigator = walkNavigator;
 			this.setNoGravity(false);
 		}
+		
+		//We reset the timer on the flight mode change, between 10 and 30 seconds.
+		this.timeUntilModeChange = this.rand.nextInt(400) + 200;
 	}
 	
 	/**
@@ -665,6 +727,7 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 	public boolean getFlightMode() {
 		return dataManager.get(flightMode);
 	}
+	
 	/**
 	 * Get the remaining wing collapse frames.
 	 */

@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
-public class ModelFairyBraidedponytail extends ModelBase {
+public class ModelFairyBraidedPonytail extends ModelBase {
 	
 	public static final float fairyScale = 0.5F;
 	
@@ -32,7 +32,7 @@ public class ModelFairyBraidedponytail extends ModelBase {
     public ModelRenderer hairPonytail4a;
     public ModelRenderer hairPonytail4b;
 	
-	public ModelFairyBraidedponytail() {
+	public ModelFairyBraidedPonytail() {
         this.textureWidth = 32;
         this.textureHeight = 32;
     

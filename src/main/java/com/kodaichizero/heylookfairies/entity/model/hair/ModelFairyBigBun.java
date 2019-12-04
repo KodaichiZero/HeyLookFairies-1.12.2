@@ -6,14 +6,15 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
-public class ModelFairyNeckpillow extends ModelBase {
+public class ModelFairyBigBun extends ModelBase {
 	
 	public static final float fairyScale = 0.5F;
 	
     public ModelRenderer hairTop;
-    public ModelRenderer hairFront;
     public ModelRenderer hairFrontLeft;
+    public ModelRenderer hairFrontMid;
     public ModelRenderer hairFrontRight;
+    public ModelRenderer hairFrontRight2;
     public ModelRenderer hairLeftFront;
     public ModelRenderer hairLeftMid;
     public ModelRenderer hairLeftBack;
@@ -21,11 +22,13 @@ public class ModelFairyNeckpillow extends ModelBase {
     public ModelRenderer hairRightMid;
     public ModelRenderer hairRightBack;
     public ModelRenderer hairBack;
-    public ModelRenderer hairCurl;
-    public ModelRenderer hairCurlLeft;
-    public ModelRenderer hairCurlRight;
+    public ModelRenderer hairBunCenter;
+    public ModelRenderer hairBunFront;
+    public ModelRenderer hairBunBack;
+    public ModelRenderer hairBunTop;
+    public ModelRenderer hairBunBottom;
 	
-	public ModelFairyNeckpillow() {
+	public ModelFairyBigBun() {
         this.textureWidth = 32;
         this.textureHeight = 32;
     
@@ -35,68 +38,74 @@ public class ModelFairyNeckpillow extends ModelBase {
 	    this.hairTop.setRotationPoint(0.0F, 0.0F, 0.0F);
 	    
 	    //Front
-	    this.hairFront = new ModelRenderer(this, 18, 0);
-	    this.hairFront.addBox(-3.0F, -6.0F, -4.0F, 6, 2, 1);
-	    this.hairTop.addChild(hairFront);
-	    
-	    this.hairFrontLeft = new ModelRenderer(this, 0, 0);
-	    this.hairFrontLeft.addBox(-3.0F, -5.0F, -5.0F, 2, 1, 1);
+	    this.hairFrontLeft = new ModelRenderer(this, 0, 7);
+	    this.hairFrontLeft.addBox(-3.0F, -6.0F, -4.0F, 2, 2, 1);
 	    this.hairTop.addChild(hairFrontLeft);
 	    
-	    this.hairFrontRight = new ModelRenderer(this, 0, 2);
-	    this.hairFrontRight.addBox(1.0F, -5.0F, -5.0F, 2, 1, 1);
+	    this.hairFrontMid = new ModelRenderer(this, 4, 7);
+	    this.hairFrontMid.addBox(-2.0F, -6.0F, -4.0F, 1, 1, 1);
+	    this.hairTop.addChild(hairFrontMid);
+	    
+	    this.hairFrontRight = new ModelRenderer(this, 8, 7);
+	    this.hairFrontRight.addBox(-1.0F, -6.0F, -4.0F, 4, 2, 1);
 	    this.hairTop.addChild(hairFrontRight);
 	    
+	    this.hairFrontRight2 = new ModelRenderer(this, 18, 7);
+	    this.hairFrontRight2.addBox(-0.5F, -5.0F, -5.0F, 3, 2, 1);
+	    this.hairTop.addChild(hairFrontRight2);
+	    
 	    //Left
-	    this.hairLeftFront = new ModelRenderer(this, 0, 7);
-	    this.hairLeftFront.addBox(-4.0F, -6.0F, -3.0F, 1, 2, 2);
+	    this.hairLeftFront = new ModelRenderer(this, 0, 10);
+	    this.hairLeftFront.addBox(-4.0F, -6.0F, -3.0F, 1, 3, 2);
 	    this.hairTop.addChild(hairLeftFront);
 	    
-	    this.hairLeftMid = new ModelRenderer(this, 6, 7);
+	    this.hairLeftMid = new ModelRenderer(this, 6, 10);
 	    this.hairLeftMid.addBox(-4.0F, -6.0F, -1.0F, 1, 4, 1);
 	    this.hairTop.addChild(hairLeftMid);
 	    
-	    this.hairLeftBack = new ModelRenderer(this, 10, 7);
+	    this.hairLeftBack = new ModelRenderer(this, 10, 10);
 	    this.hairLeftBack.addBox(-4.0F, -6.0F, 0.0F, 1, 5, 3);
 	    this.hairTop.addChild(hairLeftBack);
 	    
 	    //Right
-	    this.hairRightFront = new ModelRenderer(this, 0, 7);
-	    this.hairRightFront.addBox(3.0F, -6.0F, -3.0F, 1, 2, 2);
+	    this.hairRightFront = new ModelRenderer(this, 0, 10);
+	    this.hairRightFront.addBox(3.0F, -6.0F, -3.0F, 1, 3, 2);
 	    this.hairTop.addChild(hairRightFront);
 	    
-	    this.hairRightMid = new ModelRenderer(this, 6, 7);
+	    this.hairRightMid = new ModelRenderer(this, 6, 10);
 	    this.hairRightMid.addBox(3.0F, -6.0F, -1.0F, 1, 4, 1);
 	    this.hairTop.addChild(hairRightMid);
 	    
-	    this.hairRightBack = new ModelRenderer(this, 10, 7);
+	    this.hairRightBack = new ModelRenderer(this, 10, 10);
 	    this.hairRightBack.addBox(3.0F, -6.0F, 0.0F, 1, 5, 3);
 	    this.hairTop.addChild(hairRightBack);
 	    
 	    //Back
-	    this.hairBack = new ModelRenderer(this, 18, 7);
+	    this.hairBack = new ModelRenderer(this, 0, 18);
 	    this.hairBack.addBox(-3.0F, -6.0F, 3.0F, 6, 5, 1);
 	    this.hairTop.addChild(hairBack);
 	    
-	    //Hair Curl
-	    this.hairCurl = new ModelRenderer(this, 14, 15);
-	    this.hairCurl.addBox(-2.5F, 0.0F, 0.0F, 5, 3, 3);
-	    this.hairCurl.setRotationPoint(0.0F, -2.0F, 2.5F);
-	    this.hairTop.addChild(hairCurl);
+	    //Bun
+	    this.hairBunCenter = new ModelRenderer(this, 14, 18);
+	    this.hairBunCenter.addBox(-2.5F, -3.0F, 0.0F, 5, 3, 3);
+	    this.hairBunCenter.setRotationPoint(0.0F, -6.0F, 3.0F);
+	    this.hairTop.addChild(hairBunCenter);
 	    
-	    this.hairCurlLeft  = new ModelRenderer(this, 0, 15);
-	    this.hairCurlLeft.addBox(-4.0F, 0.0F, -3.0F, 4, 3, 3);
-	    this.hairCurlLeft.setRotationPoint(-2.5F, 0.0F, 3.0F);
-	    this.hairCurl.addChild(hairCurlLeft);
+	    this.hairBunFront = new ModelRenderer(this, 12, 24);
+	    this.hairBunFront.addBox(-1.5F, -3.0F, -1.0F, 3, 3, 1);
+	    this.hairBunCenter.addChild(hairBunFront);
 	    
-	    this.hairCurlRight  = new ModelRenderer(this, 0, 21);
-	    this.hairCurlRight.addBox(0.0F, 0.0F, -3.0F, 4, 3, 3);
-	    this.hairCurlRight.setRotationPoint(2.5F, 0.0F, 3.0F);
-	    this.hairCurl.addChild(hairCurlRight);
-
-	    //Permanent rotations.
-        this.hairCurlLeft.rotateAngleY = -(float)Math.PI / 8F;
-        this.hairCurlRight.rotateAngleY = (float)Math.PI / 8F;
+	    this.hairBunBack = new ModelRenderer(this, 12, 24);
+	    this.hairBunBack.addBox(-1.5F, -3.0F, 3.0F, 3, 3, 1);
+	    this.hairBunCenter.addChild(hairBunBack);
+	    
+	    this.hairBunTop = new ModelRenderer(this, 0, 24);
+	    this.hairBunTop.addBox(-1.5F, -4.0F, 0.0F, 3, 1, 3);
+	    this.hairBunCenter.addChild(hairBunTop);
+	    
+	    this.hairBunBottom = new ModelRenderer(this, 0, 24);
+	    this.hairBunBottom.addBox(-1.5F, 0.0F, 0.0F, 3, 1, 3);
+	    this.hairBunCenter.addChild(hairBunBottom);
 	}
 	
 	/**
@@ -121,14 +130,11 @@ public class ModelFairyNeckpillow extends ModelBase {
     	this.hairTop.rotateAngleY = netHeadYaw * 0.017453292F;
         this.hairTop.rotateAngleX = headPitch * 0.017453292F;
 
-        //Neck Pillow Bouncing
-        this.hairCurl.rotationPointY = -2.0F;
+        //Bun Bounce (teehee)
         if(entityIn.onGround) {
-        	this.hairCurl.rotateAngleX = -MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.5F;
-        	this.hairCurl.rotationPointY += MathHelper.cos(limbSwing * 2.0F * 0.6662F + ((float)Math.PI / 2.0F)) * limbSwingAmount * 0.5F;
+        	this.hairBunCenter.rotateAngleX = -0.1F - MathHelper.cos(limbSwing * 2.0F * 0.6662F + (float)Math.PI) * limbSwingAmount * 0.25F;
         } else {
-        	this.hairCurl.rotateAngleX = -(float)entityIn.motionY * 0.75F;
-        	this.hairCurl.rotationPointY += (float)entityIn.motionY * 1.5F;
+        	this.hairBunCenter.rotateAngleX = -0.1F - (float)entityIn.motionY;
         }
 	}
 }

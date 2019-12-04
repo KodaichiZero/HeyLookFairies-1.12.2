@@ -3,7 +3,7 @@ package com.kodaichizero.heylookfairies;
 import com.kodaichizero.heylookfairies.init.InitRecipes;
 import com.kodaichizero.heylookfairies.proxy.CommonProxy;
 import com.kodaichizero.heylookfairies.util.Reference;
-import com.kodaichizero.heylookfairies.util.handlers.RegistryHandler;
+import com.kodaichizero.heylookfairies.util.eventhandlers.RegistryEventHandler;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -28,7 +28,7 @@ public class Main {
 	@EventHandler
 	public static void PreInit(FMLPreInitializationEvent event)
 	{
-		RegistryHandler.preInitRegistries();
+		RegistryEventHandler.preInitRegistries();
 	}
 	
 	@EventHandler

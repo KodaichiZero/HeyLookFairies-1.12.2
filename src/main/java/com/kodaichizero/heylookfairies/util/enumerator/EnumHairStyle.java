@@ -2,17 +2,17 @@ package com.kodaichizero.heylookfairies.util.enumerator;
 
 import net.minecraft.client.model.ModelBase;
 import com.kodaichizero.heylookfairies.Main;
-import com.kodaichizero.heylookfairies.entity.model.hair.ModelFairyBigbun;
-import com.kodaichizero.heylookfairies.entity.model.hair.ModelFairyBraidedponytail;
-import com.kodaichizero.heylookfairies.entity.model.hair.ModelFairyNeckpillow;
+import com.kodaichizero.heylookfairies.entity.model.hair.ModelFairyBigBun;
+import com.kodaichizero.heylookfairies.entity.model.hair.ModelFairyBraidedPonytail;
+import com.kodaichizero.heylookfairies.entity.model.hair.ModelFairyNeckPillow;
 import com.kodaichizero.heylookfairies.entity.model.hair.ModelFairyPigtails;
 
 public enum EnumHairStyle {
 	
 	PIGTAILS(0, "pigtails", new ModelFairyPigtails()),
-	BIGBUN(1, "bigbun", new ModelFairyBigbun()),
-	BRAIDEDPONYTAIL(2, "braidedponytail", new ModelFairyBraidedponytail()),
-	NECKPILLOW(3, "neckpillow", new ModelFairyNeckpillow());
+	BIGBUN(1, "bigbun", new ModelFairyBigBun()),
+	BRAIDEDPONYTAIL(2, "braidedponytail", new ModelFairyBraidedPonytail()),
+	NECKPILLOW(3, "neckpillow", new ModelFairyNeckPillow());
 
 	private int meta;
 	private String name;

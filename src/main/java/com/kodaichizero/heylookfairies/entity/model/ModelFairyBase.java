@@ -116,13 +116,10 @@ public abstract class ModelFairyBase extends ModelBase {
         }
 
         //Check if the fairy is riding on someone's shoulder.
-        boolean shoulderRiding = false;
-        if(fairy.isShoulderRiding() ) {
-        	shoulderRiding = true;
-        }
+        this.isRiding = this.isRiding || fairy.isShoulderRiding();
         
         //Show the sitting animation.
-        if(this.isRiding || shoulderRiding) {
+        if(this.isRiding) {
             this.rightArmBase.rotateAngleX = -((float)Math.PI / 5F);
             this.leftArmBase.rotateAngleX = -((float)Math.PI / 5F);
             this.rightLegBase.rotateAngleX = -1.4137167F;
@@ -161,7 +158,7 @@ public abstract class ModelFairyBase extends ModelBase {
             modelrenderer.rotateAngleZ += MathHelper.sin(this.swingProgress * (float)Math.PI) * -0.4F;
         }
 
-        //Flight Mode Body and limb rotation stuff
+        //Flight Mode body and limb rotation stuff
         if(fairy.getFlightMode()) {
         	this.bodyBase.rotateAngleX = (float)Math.PI / 3F;
         	this.leftLegBase.rotateAngleX -= (float)Math.PI / 6F;
@@ -178,7 +175,8 @@ public abstract class ModelFairyBase extends ModelBase {
         	this.leftArmBase.rotateAngleX += ((float)Math.PI / 4F) * limbSwingAmount;
         	this.rightArmBase.rotateAngleX += ((float)Math.PI / 4F) * limbSwingAmount;
         } else if(fairy.getWingCollapseFrames() > 8) {
-        	//float amount = (float)Math.max(0, (8 - (fairy.getWingCollapseFrames() - 12))) / 8F;
+        	
+        	//This controls the nice landing animation that occurs when the fairy lands after flying.
         	float amount = (float)(fairy.getWingCollapseFrames() - 8) / 8F;
         	
         	this.bodyBase.rotateAngleX = (float)MathHelper.clampedLerp(0D, (float)Math.PI / 3F, amount);
@@ -189,22 +187,26 @@ public abstract class ModelFairyBase extends ModelBase {
         	this.rightLegBase.rotateAngleZ = (float)MathHelper.clampedLerp(0F, 0.15F, amount);
         } else {
         	this.bodyBase.rotateAngleX = 0F;
-        	
         	this.leftLegBase.rotateAngleZ = 0F;
         	this.rightLegBase.rotateAngleZ = 0F;
         }
 
         //Idle swaying of arms.
-        if(!fairy.getFlightMode()) {
-	        this.rightArmBase.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.25F;
-	        this.leftArmBase.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.25F;
-	        this.rightArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
-	        this.leftArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
+        if(!this.isRiding) {
+	        if(!fairy.getFlightMode()) {
+		        this.rightArmBase.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.25F;
+		        this.leftArmBase.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.035F + 0.25F;
+		        this.rightArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
+		        this.leftArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.225F;
+	        } else {
+	        	this.rightArmBase.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.225F + 0.5F;
+		        this.leftArmBase.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.225 + 0.5F;
+		        this.rightArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.035F;
+		        this.leftArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.035F;
+	        }
         } else {
-        	this.rightArmBase.rotateAngleZ += MathHelper.cos(ageInTicks * 0.07F) * 0.225F + 0.5F;
-	        this.leftArmBase.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.07F) * 0.225 + 0.5F;
-	        this.rightArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.035F;
-	        this.leftArmBase.rotateAngleX -= MathHelper.sin(ageInTicks * 0.2F) * 0.035F;
+        	this.rightArmBase.rotateAngleZ = 0.5F;
+	        this.leftArmBase.rotateAngleZ = -0.5F;
         }
 	}
 	
