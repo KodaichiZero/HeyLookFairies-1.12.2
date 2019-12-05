@@ -165,8 +165,8 @@ public class WorldGenFairyRing extends WorldGenerator {
         	//And now generate mushrooms on the fringe.
         	for(int i = 0; i < blob.getNumVertices(); i++) {
         		float coords[] = blob.getVertexPos(i);
-        		BlockPos posOffset = pos.add(coords[0] + 0.5D, 0.0D, coords[1] + 0.5D);
-    			if(!(worldIn.getBlockState(posOffset.down()).getBlock() == Blocks.GRASS) && !((worldIn.getBlockState(posOffset.down()).getBlock() == Blocks.DIRT && worldIn.getBlockState(posB1).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL))) {
+        		BlockPos posOffset = pos.add(Math.round(coords[0]), 0, Math.round(coords[1]));
+    			if(!(worldIn.getBlockState(posOffset.down()).getBlock() == Blocks.GRASS) && !((worldIn.getBlockState(posOffset.down()).getBlock() == Blocks.DIRT && worldIn.getBlockState(posOffset.down()).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL))) {
     				worldIn.setBlockState(posOffset.up(), Blocks.GRASS.getDefaultState(), 3);
     			}
         		worldIn.setBlockState(posOffset, InitBlocks.PORTAL_MUSHROOM.getDefaultState(), 3);
