@@ -41,7 +41,7 @@ public class WorldGenEventHandler {
 		ChunkGeneratorOverworld gen = (ChunkGeneratorOverworld)event.getGen();
 		Random rand = event.getRand();
 		World world = event.getWorld();
-		
+		/*
 		int x = event.getChunkX();
 		int z = event.getChunkZ();
 		
@@ -59,16 +59,31 @@ public class WorldGenEventHandler {
 	            (new WorldGenLakes(Blocks.WATER)).generate(world, rand, blockpos.add(i1, j1, k1));
 	        }
 		}
+		
+		BlockPos chunkPos = new BlockPos(event.getChunkX(), 0, event.getChunkZ());
+		
+		for(int i = 0; i < 4; i++) {
+	        int x = rand.nextInt(16) + 8;
+	        int z = rand.nextInt(16) + 8;
+	        
+	        Biome biome = world.getBiome(chunkPos.add(x, 0, z));
+	        if(biome instanceof BiomeForest || biome instanceof BiomeTaiga || biome instanceof BiomePlains || biome instanceof BiomeHills || biome instanceof BiomeMesa
+	        		|| biome instanceof BiomeJungle || biome instanceof BiomeSavanna || biome instanceof BiomeSwamp || biome instanceof BiomeForestMutated) {
+	        	new WorldGenFairyRing().generate(world, rand, world.getHeight(chunkPos.add(x, 0, z)));
+	        }
+        }
+        */
 	}
 	
 	/**
-	 * Make some boulders Y'all.
+	 * Decorate chunks as they generate
 	 */
 	@SubscribeEvent
 	public static void onDecorateBiome(DecorateBiomeEvent.Post event) {
 		World world = event.getWorld();
 		Random rand = event.getRand();
 		
+		//Create random boulders.
         if(rand.nextInt(32) == 0) {
             int x = rand.nextInt(16) + 8;
             int z = rand.nextInt(16) + 8;
@@ -79,7 +94,8 @@ public class WorldGenEventHandler {
             }
         }
         
-        if(world.rand.nextInt(4) == 0) {
+        //Create fairy rings.
+        for(int i = 0; i < 4; i++) {
 	        int x = rand.nextInt(16) + 8;
 	        int z = rand.nextInt(16) + 8;
 	        

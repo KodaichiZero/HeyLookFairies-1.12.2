@@ -10,13 +10,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 
-public class FungusNetworkBlock extends BlockBase {
+public class BlockPortalFungus extends BlockBase {
 	
-	public static final SoundType CRUST = new SoundType(1.0F, 1.0F, SoundEvents.BLOCK_GRAVEL_BREAK, SoundEvents.BLOCK_GRAVEL_STEP, SoundEvents.BLOCK_GRAVEL_PLACE, SoundEvents.BLOCK_GRAVEL_HIT, SoundEvents.BLOCK_GRAVEL_FALL);
+	public static final SoundType FUNGUS = new SoundType(1.0F, 1.0F, SoundEvents.BLOCK_GRAVEL_BREAK, SoundEvents.BLOCK_GRAVEL_STEP, SoundEvents.BLOCK_GRAVEL_PLACE, SoundEvents.BLOCK_GRAVEL_HIT, SoundEvents.BLOCK_GRAVEL_FALL);
 	
-	public FungusNetworkBlock(String name, Material material) {
+	public BlockPortalFungus(String name, Material material) {
 		super(name, material);
-		setSoundType(CRUST);
+		setSoundType(FUNGUS);
 		setHardness(0.8F);
 		setResistance(5F);
 		setHarvestLevel("shovel", 0);

@@ -214,7 +214,7 @@ public class EntityFairy extends EntityCreature implements EntityFlying {
 	        }
 			
 			//Update mode change counter, if the fairy is not riding on a shoulder.
-			if(!isShoulderRiding()) {
+			if(!isShoulderRiding() && !isRiding()) {
 				timeUntilModeChange --;
 				if(this.timeUntilModeChange <= 0) {
 					

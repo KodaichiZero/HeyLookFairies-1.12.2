@@ -11,10 +11,12 @@ item.magic_dye.name=Magic Dye
 item.magic_dye.lore=Dye enhanced with fairy dust. Allows for additional colorations.
 
 //Blocks
-tile.fairy_crust_block.name=Block of Fairy Crust
-tile.fairy_crust_block.lore=A literal pile of fairy guts. Keeps fairies away!
-tile.fungus_network_block.name=Ring Fungus Network
-tile.fungus_network_block.lore=The core of a fairy ring. Very fragile.
+tile.block_fairy_crust.name=Block of Fairy Crust
+tile.block_fairy_crust.lore=A literal pile of fairy guts. Keeps fairies away!
+tile.block_portal_fungus.name=Portal Fungus
+tile.block_portal_fungus.lore=The core of a fairy ring. Very fragile.
+tile.block_portal_mushroom.name=Portal Mushroom
+tile.block_portal_mushroom.lore=The fruiting body of a fairy ring.
 
 //Entities
 entity.fairy.name=Fairy

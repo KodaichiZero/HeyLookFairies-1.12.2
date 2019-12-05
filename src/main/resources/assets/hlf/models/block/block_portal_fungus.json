@@ -1,6 +1,6 @@
 {
    "parent": "block/cube_all",
    "textures": {
-       "all": "hlf:blocks/fungus_network_block"
+       "all": "hlf:blocks/block_portal_fungus"
    }
 }

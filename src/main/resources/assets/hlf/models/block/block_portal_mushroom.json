@@ -1,0 +1,6 @@
+{
+   "parent": "block/cross",
+   "textures": {
+       "cross": "hlf:blocks/block_portal_mushroom"
+   }
+}

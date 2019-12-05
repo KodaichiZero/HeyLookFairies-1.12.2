@@ -20,6 +20,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 public class WorldGenFairyRing extends WorldGenerator {
 	
 	private static List<Block> worksAsAir;
+	private static List<Block> isLeaves;
 	
 	static {
 		worksAsAir = new ArrayList<Block>();
@@ -31,6 +32,11 @@ public class WorldGenFairyRing extends WorldGenerator {
 		worksAsAir.add(Blocks.YELLOW_FLOWER);
 		worksAsAir.add(Blocks.DOUBLE_PLANT);
 		worksAsAir.add(Blocks.SNOW_LAYER);
+		worksAsAir.add(Blocks.VINE);
+		
+		isLeaves = new ArrayList<Block>();
+		isLeaves.add(Blocks.LEAVES);
+		isLeaves.add(Blocks.LEAVES2);
 	}
 
 	@Override
@@ -65,15 +71,15 @@ public class WorldGenFairyRing extends WorldGenerator {
 	        				return false;
 	        			}
 	        			
-	        			//The first layer must be air or an airy-type block.
+	        			//The first layer must be air or an airy-type block. We do not allow leaves on this layer.
 	        			BlockPos pos1 = posOffset;
 	        			if(!worksAsAir.contains(worldIn.getBlockState(pos1).getBlock())) {
 	        				return false;
 	        			}
 	        			
-	        			//The second layer must also be the same.
+	        			//The second layer must also be airy but we do allow leaves here.
 	        			BlockPos pos2 = posOffset.up();
-	        			if(!worksAsAir.contains(worldIn.getBlockState(pos2).getBlock())) {
+	        			if(!worksAsAir.contains(worldIn.getBlockState(pos2).getBlock()) && !isLeaves.contains(worldIn.getBlockState(pos2).getBlock())) {
 	        				return false;
 	        			}
 	        		}
@@ -83,6 +89,9 @@ public class WorldGenFairyRing extends WorldGenerator {
         	//If we have made it this far, we have successfully verified the spot is good for a fairy ring.
         	
         	//WOOOOO
+        	
+        	//First We bury the fungus network block in the center.
+        	worldIn.setBlockState(pos.down().down(), InitBlocks.PORTAL_FUNGUS.getDefaultState(), 3);
         	
         	//Loop through the potential boundaries of the blob.
         	for(int x = -(int)(randSize * 1.5F); x <= (int)(randSize * 1.5F); x++) {
@@ -118,18 +127,25 @@ public class WorldGenFairyRing extends WorldGenerator {
 	        					BlockTallGrass.EnumType type;
 	        					
 	        					//Mix some ferns in with the grass.
-	        					if(worldIn.rand.nextInt(10) == 0) {
+	        					if(worldIn.rand.nextInt(3) == 0) {
 	        						type = BlockTallGrass.EnumType.FERN;
 	        					} else {
 	        						type = BlockTallGrass.EnumType.GRASS;
 	        					}
 	        					
 	        					//More rarely, make some tall grass.
-	        					if(worldIn.rand.nextInt(16) == 0) {
-	        						worldIn.setBlockState(posOffset, Blocks.DOUBLE_PLANT.getDefaultState().withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.LOWER).withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.GRASS), 3);
-	        				        worldIn.setBlockState(posOffset.up(), Blocks.DOUBLE_PLANT.getDefaultState().withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER), 3);
+	        					if(worldIn.rand.nextInt(16) == 0 && !isLeaves.contains(worldIn.getBlockState(posOffset.up()).getBlock())) {
+	        						if(Blocks.DOUBLE_PLANT.canBlockStay(worldIn, posOffset, Blocks.DOUBLE_PLANT.getDefaultState())) {
+		        						worldIn.setBlockState(posOffset, Blocks.DOUBLE_PLANT.getDefaultState().withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.LOWER).withProperty(BlockDoublePlant.VARIANT, BlockDoublePlant.EnumPlantType.GRASS), 3);
+		        				        worldIn.setBlockState(posOffset.up(), Blocks.DOUBLE_PLANT.getDefaultState().withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER), 3);
+	        						}
 	        					} else {
-	        						worldIn.setBlockState(posOffset, Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, type), 3);
+	        						if(Blocks.TALLGRASS.canBlockStay(worldIn, posOffset, Blocks.TALLGRASS.getDefaultState())) {
+	        							worldIn.setBlockState(posOffset, Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, type), 3);
+	        							if(!isLeaves.contains(worldIn.getBlockState(posOffset.up()).getBlock())) {
+	        								worldIn.setBlockState(posOffset.up(), Blocks.AIR.getDefaultState());
+	        							}
+	        						}
 	        					}
         					}
         				} else {
@@ -137,6 +153,9 @@ public class WorldGenFairyRing extends WorldGenerator {
         					//If there's something other than snow present (like stray tall grass), make it air.
         					if(worldIn.getBlockState(posOffset).getBlock() != Blocks.SNOW_LAYER && worksAsAir.contains(worldIn.getBlockState(posOffset).getBlock())) {
         						worldIn.setBlockState(posOffset, Blocks.AIR.getDefaultState(), 3);
+        					}
+        					if(worldIn.getBlockState(posOffset.up()).getBlock() != Blocks.SNOW_LAYER && worksAsAir.contains(worldIn.getBlockState(posOffset.up()).getBlock())) {
+        						worldIn.setBlockState(posOffset.up(), Blocks.AIR.getDefaultState(), 3);
         					}
         				}
         			}
@@ -146,15 +165,15 @@ public class WorldGenFairyRing extends WorldGenerator {
         	//And now generate mushrooms on the fringe.
         	for(int i = 0; i < blob.getNumVertices(); i++) {
         		float coords[] = blob.getVertexPos(i);
-        		IBlockState state = (worldIn.rand.nextInt(2) == 0 ? Blocks.BROWN_MUSHROOM.getDefaultState() : Blocks.RED_MUSHROOM.getDefaultState());
         		BlockPos posOffset = pos.add(coords[0] + 0.5D, 0.0D, coords[1] + 0.5D);
-        		worldIn.setBlockState(posOffset.down(), Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL), 3);
-        		worldIn.setBlockState(posOffset, state, 3);
-        		worldIn.setBlockState(posOffset.up(), Blocks.AIR.getDefaultState(), 3);
+    			if(!(worldIn.getBlockState(posOffset.down()).getBlock() == Blocks.GRASS) && !((worldIn.getBlockState(posOffset.down()).getBlock() == Blocks.DIRT && worldIn.getBlockState(posB1).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL))) {
+    				worldIn.setBlockState(posOffset.up(), Blocks.GRASS.getDefaultState(), 3);
+    			}
+        		worldIn.setBlockState(posOffset, InitBlocks.PORTAL_MUSHROOM.getDefaultState(), 3);
+        		if(!isLeaves.contains(worldIn.getBlockState(posOffset.up()).getBlock())) {
+					worldIn.setBlockState(posOffset.up(), Blocks.AIR.getDefaultState(), 3);
+				}
         	}
-        	
-        	//FINALLY We bury the fungus network block in the center.
-        	worldIn.setBlockState(pos.down().down(), InitBlocks.FUNGUS_NETWORK_BLOCK.getDefaultState(), 3);
         	
         	return true;
 		}
