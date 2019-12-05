@@ -167,7 +167,7 @@ public class WorldGenFairyRing extends WorldGenerator {
         		float coords[] = blob.getVertexPos(i);
         		BlockPos posOffset = pos.add(Math.round(coords[0]), 0, Math.round(coords[1]));
     			if(!(worldIn.getBlockState(posOffset.down()).getBlock() == Blocks.GRASS) && !((worldIn.getBlockState(posOffset.down()).getBlock() == Blocks.DIRT && worldIn.getBlockState(posOffset.down()).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL))) {
-    				worldIn.setBlockState(posOffset.up(), Blocks.GRASS.getDefaultState(), 3);
+    				worldIn.setBlockState(posOffset.down(), Blocks.GRASS.getDefaultState(), 3);
     			}
         		worldIn.setBlockState(posOffset, InitBlocks.PORTAL_MUSHROOM.getDefaultState(), 3);
         		if(!isLeaves.contains(worldIn.getBlockState(posOffset.up()).getBlock())) {
