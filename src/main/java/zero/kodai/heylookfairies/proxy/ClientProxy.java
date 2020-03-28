@@ -19,8 +19,6 @@ import zero.kodai.heylookfairies.entity.model.hair.ModelFairyNeckPillow;
 import zero.kodai.heylookfairies.entity.model.hair.ModelFairyPigtails;
 import zero.kodai.heylookfairies.entity.render.RenderFairy;
 import zero.kodai.heylookfairies.init.InitItems;
-import zero.kodai.heylookfairies.util.enumerator.EnumFairyClothes;
-import zero.kodai.heylookfairies.util.enumerator.EnumHairStyle;
 
 public class ClientProxy<E> extends CommonProxy {
 	

@@ -1,8 +1,6 @@
 package zero.kodai.heylookfairies.proxy;
 
 import net.minecraft.item.Item;
-import zero.kodai.heylookfairies.util.enumerator.EnumFairyClothes;
-import zero.kodai.heylookfairies.util.enumerator.EnumHairStyle;
 
 public class CommonProxy {
 	

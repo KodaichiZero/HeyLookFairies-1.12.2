@@ -122,11 +122,11 @@ public class TileEntityFairyHouse extends TileEntityLockableLoot implements ITic
 
 			float f3 = 0.5F;
 
-			if(this.lidAngle < 0.5F && f2 >= 0.5F) {
-				double d3 = (double) pos.getX() + 0.5D;
-				double d0 = (double) pos.getZ() + 0.5D;
-				this.world.playSound((EntityPlayer) null, d3, (double) pos.getY() + 0.5D, d0,
-						SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 0.5F,
+			if(this.lidAngle < f3 && f2 >= f3) {
+				double d3 = (double) pos.getX() + f3;
+				double d0 = (double) pos.getZ() + f3;
+				this.world.playSound((EntityPlayer) null, d3, (double) pos.getY() + f3, d0,
+						SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, f3,
 						this.world.rand.nextFloat() * f1 + 0.9F);
 			}
 

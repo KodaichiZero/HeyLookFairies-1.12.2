@@ -63,7 +63,6 @@ public class BlockFairyHouse extends BlockBase {
 		return new TileEntityFairyHouse();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
