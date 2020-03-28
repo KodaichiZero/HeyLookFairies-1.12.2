@@ -1,5 +1,6 @@
 package zero.kodai.heylookfairies;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -11,6 +12,7 @@ import zero.kodai.heylookfairies.init.InitRecipes;
 import zero.kodai.heylookfairies.proxy.CommonProxy;
 import zero.kodai.heylookfairies.util.Reference;
 import zero.kodai.heylookfairies.util.handlers.RegistryEventHandler;
+import zero.kodai.heylookfairies.util.handlers.TickHandler;
 
 
 //Hey ho let's define this mod, baby!
@@ -39,6 +41,6 @@ public class Main {
 	@EventHandler
 	public static void Postinit(FMLPostInitializationEvent event)
 	{
-		
+		MinecraftForge.EVENT_BUS.register(new TickHandler());
 	}
 }
