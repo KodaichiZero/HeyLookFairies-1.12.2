@@ -1,31 +1,28 @@
 package zero.kodai.heylookfairies.util.enumerator;
 
-import net.minecraft.client.model.ModelBase;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import zero.kodai.heylookfairies.Main;
-import zero.kodai.heylookfairies.entity.model.hair.ModelFairyBigBun;
-import zero.kodai.heylookfairies.entity.model.hair.ModelFairyBraidedPonytail;
-import zero.kodai.heylookfairies.entity.model.hair.ModelFairyNeckPillow;
-import zero.kodai.heylookfairies.entity.model.hair.ModelFairyPigtails;
 
 public enum EnumHairStyle {
 	
-	PIGTAILS(0, "pigtails", new ModelFairyPigtails()),
-	BIGBUN(1, "bigbun", new ModelFairyBigBun()),
-	BRAIDEDPONYTAIL(2, "braidedponytail", new ModelFairyBraidedPonytail()),
-	NECKPILLOW(3, "neckpillow", new ModelFairyNeckPillow());
+	PIGTAILS(0, "pigtails"),
+	BIGBUN(1, "bigbun"),
+	BRAIDEDPONYTAIL(2, "braidedponytail"),
+	NECKPILLOW(3, "neckpillow");
 
 	private int meta;
 	private String name;
 	private String displayName;
-	private ModelBase model;
+	private Object model;
 	
 	private static final EnumHairStyle[] ID_LOOKUP = new EnumHairStyle[values().length];
 	
-	private EnumHairStyle(int meta, String name, ModelBase model) {
+	private EnumHairStyle(int meta, String name) {
 		this.meta = meta;
 		this.name = name;
 		this.displayName = Main.proxy.getDisplayName("hairstyle." + name);
-		this.model = model;
+		this.model = Main.proxy.getHairModel(meta);
 	}
 	
 	/**
@@ -72,7 +69,8 @@ public enum EnumHairStyle {
 	/**
 	 * Gets the model which will be used in the render layer.
 	 */
-	public ModelBase getModel() {
+	@SideOnly(Side.CLIENT)
+	public Object getModel() {
 		return model;
 	}
 

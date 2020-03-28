@@ -17,5 +17,5 @@ public class InitBlocks {
 	public static final Block FAIRY_CRUST_BLOCK = new BlockFairyCrust("block_fairy_crust", Material.CLAY, MapColor.MAGENTA);
 	public static final Block PORTAL_FUNGUS = new BlockPortalFungus("block_portal_fungus", Material.GROUND, MapColor.PURPLE);
 	public static final Block PORTAL_MUSHROOM = new BlockPortalMushroom("block_portal_mushroom", Material.PLANTS, MapColor.PINK);
-	public static final Block FAIRY_HOUSE = new BlockFairyHouse("block_fairy_house", Material.ROCK, MapColor.BROWN);
+	//public static final Block FAIRY_HOUSE = new BlockFairyHouse("block_fairy_house", Material.ROCK, MapColor.BROWN);
 }

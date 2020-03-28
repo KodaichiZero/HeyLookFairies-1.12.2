@@ -23,7 +23,7 @@ public class LayerFairyHair implements LayerRenderer<EntityFairy> {
 	public LayerFairyHair(RenderFairy fairyRendererIn, EnumHairStyle hairStyle) {
         this.fairyRenderer = fairyRendererIn;
         this.hairStyle = hairStyle;
-        this.hairModel = hairStyle.getModel();
+        this.hairModel = (ModelBase)hairStyle.getModel();
         this.texture = new ResourceLocation(Reference.MOD_ID + ":textures/entities/fairyhair_" + hairStyle.getUnlocalizedName() + ".png");
     }
 

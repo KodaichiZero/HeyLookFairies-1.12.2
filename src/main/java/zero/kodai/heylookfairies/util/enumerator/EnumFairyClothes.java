@@ -1,31 +1,28 @@
 package zero.kodai.heylookfairies.util.enumerator;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import zero.kodai.heylookfairies.Main;
-import zero.kodai.heylookfairies.entity.model.ModelFairyBase;
-import zero.kodai.heylookfairies.entity.model.clothes.ModelFairyColonialDress;
-import zero.kodai.heylookfairies.entity.model.clothes.ModelFairyForestTunic;
-import zero.kodai.heylookfairies.entity.model.clothes.ModelFairyHulaGirl;
-import zero.kodai.heylookfairies.entity.model.clothes.ModelFairyShroomyTop;
 
 public enum EnumFairyClothes {
 	
-	COLONIALDRESS(0, "colonialdress", new ModelFairyColonialDress()),
-	HULAGIRL(1, "hulagirl", new ModelFairyHulaGirl()),
-	FORESTTUNIC(2, "foresttunic", new ModelFairyForestTunic()),
-	SHROOMYTOP(3, "shroomytop", new ModelFairyShroomyTop());
+	COLONIALDRESS(0, "colonialdress"),
+	HULAGIRL(1, "hulagirl"),
+	FORESTTUNIC(2, "foresttunic"),
+	SHROOMYTOP(3, "shroomytop");
 
 	private int meta;
 	private String name;
 	private String displayName;
-	private ModelFairyBase model;
+	private Object model;
 	
 	private static final EnumFairyClothes[] ID_LOOKUP = new EnumFairyClothes[values().length];
 	
-	private EnumFairyClothes(int meta, String name, ModelFairyBase model) {
+	private EnumFairyClothes(int meta, String name) {
 		this.meta = meta;
 		this.name = name;
 		this.displayName = Main.proxy.getDisplayName("clothes." + name);
-		this.model = model;
+		this.model = Main.proxy.getClothesModel(meta);
 	}
 	
 	/**
@@ -72,7 +69,8 @@ public enum EnumFairyClothes {
 	/**
 	 * Gets the model which will be used in the render layer.
 	 */
-	public ModelFairyBase getModel() {
+	@SideOnly(Side.CLIENT)
+	public Object getModel() {
 		return model;
 	}
 

@@ -24,7 +24,7 @@ public class LayerFairyClothes implements LayerRenderer<EntityFairy> {
 	public LayerFairyClothes(RenderFairy fairyRendererIn, EnumFairyClothes clothes) {
         this.fairyRenderer = fairyRendererIn;
         this.clothes = clothes;
-        this.clothesModel = clothes.getModel();
+        this.clothesModel = (ModelFairyBase)clothes.getModel();
         this.texture = new ResourceLocation(Reference.MOD_ID + ":textures/entities/fairyclothes_" + clothes.getUnlocalizedName() + ".png");
     }
 
