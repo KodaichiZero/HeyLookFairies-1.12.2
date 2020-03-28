@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "FF",
+        "FF"
+    ],
+   
+    "key":
+    {
+        "F":
+        {
+            "item": "hlf:fairy_crust"
+        }
+    },
+   
+    "result":
+    {
+        "item": "hlf:block_fairy_crust",
+        "count": 1
+    }
+}
